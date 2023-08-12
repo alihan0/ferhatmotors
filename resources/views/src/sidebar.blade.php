@@ -88,6 +88,26 @@
           </div>
         </li>
         
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="collapse" href="#reports" role="button" aria-expanded="false" aria-controls="reports">
+            <i class="link-icon" data-feather="file"></i>
+            <span class="link-title">Raporlar</span>
+            <i class="link-arrow" data-feather="chevron-down"></i>
+          </a>
+          <div class="collapse" id="reports">
+            <ul class="nav sub-menu">
+              <li class="nav-item">
+                <a href="/report/balance" class="nav-link">Bilanço</a>
+              </li>
+              <li class="nav-item">
+                <a href="/report/revenue" class="nav-link">Gelir Raporları</a>
+              </li>
+              <li class="nav-item">
+                <a href="/report/expens" class="nav-link">Gider Raporları</a>
+              </li>
+            </ul>
+          </div>
+        </li>
         
         
         <li class="nav-item nav-category">Yardım</li>

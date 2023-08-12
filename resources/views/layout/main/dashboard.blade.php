@@ -3,7 +3,7 @@
 @section('title', 'Pano')
     
 @section('content')
-    panıo
+    Anasayfa
 @endsection
 
 @section('script')
