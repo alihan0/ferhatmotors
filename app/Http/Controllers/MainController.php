@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     public function home(){
-        echo "home";
+        return view('layout.main.dashboard');
     }
 }
