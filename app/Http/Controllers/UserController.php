@@ -43,4 +43,40 @@ class UserController extends Controller
 
         return $this->response;
     }
+
+
+    public function update(Request $request){
+
+        if($request->user_id){
+            $user = User::find($request->user_id);
+            if($user){
+                if(empty($request->firstname) || empty($request->lastname) || empty($request->email) || empty($request->phone) || empty($request->fileData)){
+                    $this->response["message"] = "Boş alan bırakamazsınız!";
+                }else{
+                    $user->firstname = trim($request->firstname);
+                    $user->lastname  = trim($request->lastname);
+                    $user->email     = trim($request->email);
+                    $user->phone     = trim($request->phone);
+                    $user->photo     = trim($request->fileData);
+                    
+                    if($user->save()){
+                        $this->response["type"] = "success";
+                        $this->response["message"] = "Bilgiler Güncellendi!";
+                        $this->response["status"] = true;
+                    }else{
+                        $this->response["type"] = "error";
+                        $this->response["message"] = "SYSTEM_ERROR";
+                    }
+                }
+            }else{
+                $this->response["type"] = "error";
+                $this->response["message"] = "SYSTEM_ERROR";
+            }
+        }else{
+            $this->response["type"] = "error";
+            $this->response["message"] = "SYSTEM_ERROR";
+        }
+
+        return $this->response;
+    }
 }
