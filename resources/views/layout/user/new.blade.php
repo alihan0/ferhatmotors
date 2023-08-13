@@ -8,7 +8,7 @@
     
 <nav class="page-breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Kullanıcılar</a></li>
+        <li class="breadcrumb-item"><a href="/user/all">Kullanıcılar</a></li>
         <li class="breadcrumb-item active" aria-current="page">Yeni Kullanıcı</li>
     </ol>
 </nav>

@@ -117,5 +117,32 @@ class UserController extends Controller
 
         return $this->response;
     }
+
+    public function remove(Request $request){
+        
+
+        if($request->id){
+            $user = User::find($request->id);
+            if($user){
+                if($user->delete()){
+                    $this->response["type"] = "success";
+                    $this->response["title"] = "İşlem Başarılı";
+                    $this->response["message"] = "Kullanıcıyı başarıyla sildiniz.";
+                    $this->response["status"] = true;
+                }else{
+                    $this->response["type"] = "error";
+                    $this->response["title"] = "SYSTEM_ERROR";
+                }
+            }else{
+                $this->response["type"] = "error";
+                $this->response["title"] = "SYSTEM_ERROR";
+            }
+        }else{
+            $this->response["type"] = "error";
+            $this->response["title"] = "SYSTEM_ERROR";
+        }
+
+        return $this->response;
+    }
 }
 

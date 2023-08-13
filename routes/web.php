@@ -34,6 +34,7 @@ Route::controller(UserController::class)->prefix('user')->middleware('auth')->gr
     Route::post('/new', 'newUser');
     Route::post('/change-password', 'change_password');
     Route::post('/update', 'update');
+    Route::post('/remove', 'remove');
 }); 
 
 Route::controller(UploadController::class)->prefix('upload')->middleware('auth')->group(function(){

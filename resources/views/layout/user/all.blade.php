@@ -42,7 +42,7 @@
                         <td class="text-end" id="{{$user->id}}">
                             <a href="javascript:;" class="btn btn-info btn-xs editInfoBtn" data-bs-toggle="tooltip" title="Bilgileri Güncelle"><i width="10" data-feather="edit"></i></a>
                             <a href="javascript:;" class="btn btn-warning btn-xs changePassBtn" data-bs-toggle="tooltip" title="Şifre Değiştir"><i width="10" data-feather="key"></i></a>
-                            <a href="javascript:;" class="btn btn-danger btn-xs" data-bs-toggle="tooltip" title="Sil"><i width="10" data-feather="trash-2"></i></a>
+                            <a href="javascript:;" class="btn btn-danger btn-xs removeUserBtn" data-bs-toggle="tooltip" title="Sil"><i width="10" data-feather="trash-2"></i></a>
                         </td>
                       </tr>
 
@@ -210,6 +210,40 @@
                 }
             });
         });
+
+        $(".removeUserBtn").on("click", function(){
+          var id = $(this).parent('td').attr('id');
+
+          Swal.fire({
+            title: 'Emin misin?',
+            text: "Kullanıcıyı silersen, bütün veriyle birlikte kullanıcı hesabı silinecektir. Hesaba tekrar giriş yapılamayacak ve onun oluşturduğu hiçbir veriye ulaşamayacaksınız. Dikkat: Bu işlem geri alınamaz!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: "Vazgeç",
+            confirmButtonText: 'Evet, Sil!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+
+              axios.post('/user/remove', {id:id}).then((res)=>{
+                Swal.fire(
+                  res.data.title,
+                  res.data.message,
+                  res.data.type
+                )
+                if(res.data.status){
+                  setInterval(() => {
+                    window.location.reload();
+                  }, 1500);
+                }
+              })
+
+
+              
+            }
+          })
+        })
 
     </script>
 @endsection
