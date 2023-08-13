@@ -19,9 +19,6 @@ class UploadController extends Controller
         if (!in_array($extension, $allowedExtensions)) {
             $this->response["message"] = "Geçersiz dosya formatı!";
         }else{
-            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-            $newFileName = substr(str_shuffle(str_repeat($pool, 5)), 0, 16) . '.'.$extension;
             $path = Storage::disk('public')->put('profile', $file);
             //$path = $request->file('document')->move(public_path("documents"), $newFileName);
             if($path){

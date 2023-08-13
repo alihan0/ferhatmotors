@@ -79,4 +79,43 @@ class UserController extends Controller
 
         return $this->response;
     }
+
+
+    public function new(){
+        return view('layout.user.new');
+    }
+
+    public function newUser(Request $request){
+        
+        if(empty($request->firstname) || empty($request->lastname) || empty($request->email) || empty($request->phone) || empty($request->password) || empty($request->fileData)){
+            $this->response["message"] = "Boş alan bırakmayın!";
+        }elseif(strlen($request->password) < 6){
+            $this->response["message"] = "Şifre en az 6 karakter uzunluğunda olmalı!";
+        }else{
+            $mail = User::where('email', $request->email)->first();
+            if($mail){
+                $this->response["message"] = "E-posta daha önce kaydedilmiş!";
+            }else{
+                $user = new User;
+                $user->firstname = trim($request->firstname);
+                $user->lastname  = trim($request->lastname);
+                $user->email     = trim($request->email);
+                $user->phone     = trim($request->phone);
+                $user->password  = Hash::make(trim($request->password));
+                $user->photo     = trim($request->fileData);
+
+                if($user->save()){
+                    $this->response["type"] = "success";
+                    $this->response["message"] = "Kullanıcı oluşturuldu.";
+                    $this->response["status"] = true;
+                }else{
+                    $this->response["type"] = "error";
+                    $this->response["message"] = "SYSTEM_ERROR";
+                }
+            }
+        }
+
+        return $this->response;
+    }
 }
+
