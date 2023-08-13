@@ -34,7 +34,8 @@
                       @foreach ($users as $user)
                       <tr class="align-middle">
                         <th scope="row">{{$user->id}}</th>
-                        <td>{{$user->photo}}</td>
+                        <td><img src="{{asset('storage/'.$user->photo)}}" class="wd-100 wd-sm-200 me-3">
+                        </td>
                         <td>{{$user->firstname.' '.$user->lastname}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->phone}}</td>
@@ -56,7 +57,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <form id="editForm{{$user->id}}">
-                                        <input type="text" name="user_id" value="{{$user->id}}">
+                                        <input type="hidden" name="user_id" value="{{$user->id}}">
                                         <div class="row mb-3">
                                           <label for="firstname" class="col-4 col-form-label">İsim</label>
                                           <div class="col-8">
@@ -90,7 +91,7 @@
                                             <label for="photo" class="col-4 col-form-label">Fotoğraf</label>
                                             <div class="col-8">
                                               <input type="file" user-id="{{$user->id}}" class="form-control changePhoto" id="photo" name="photo">
-                                              <input type="text" name="fileData" id="fileData{{$user->id}}" value="{{$user->photo}}">
+                                              <input type="hidden" name="fileData" id="fileData{{$user->id}}" value="{{$user->photo}}">
                                             </div>
                                           </div>
                                         
