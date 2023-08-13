@@ -41,7 +41,9 @@ Route::controller(UserController::class)->prefix('user')->middleware('auth')->gr
 
 Route::controller(CustomerController::class)->prefix('/customer')->middleware('auth')->group(function(){
     Route::get('/new' , 'new');
+    Route::get('/all' , 'all');
     Route::post('/save', 'save');
+    Route::post('/update', 'update');
 });
 
 

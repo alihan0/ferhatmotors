@@ -46,4 +46,42 @@ class CustomerController extends Controller
 
         return $this->response;
     }
+
+    public function all(){
+        return view('layout.customer.all', ['customers' => Customer::all()]);
+    }
+
+    public function update(Request $request){
+
+        if($request->customer_id){
+            $customer = Customer::find($request->customer_id);
+            if($customer){
+                if(empty($request->firstname) || empty($request->lastname) || empty($request->email) || empty($request->phone)){
+                    $this->response["message"] = "Boş alan bırakamazsınız!";
+                }else{
+                    $customer->firstname = trim($request->firstname);
+                    $customer->lastname  = trim($request->lastname);
+                    $customer->email     = trim($request->email);
+                    $customer->phone     = trim($request->phone);
+                    
+                    if($customer->save()){
+                        $this->response["type"] = "success";
+                        $this->response["message"] = "Bilgiler Güncellendi!";
+                        $this->response["status"] = true;
+                    }else{
+                        $this->response["type"] = "error";
+                        $this->response["message"] = "SYSTEM_ERROR";
+                    }
+                }
+            }else{
+                $this->response["type"] = "error";
+                $this->response["message"] = "SYSTEM_ERROR";
+            }
+        }else{
+            $this->response["type"] = "error";
+            $this->response["message"] = "SYSTEM_ERROR";
+        }
+
+        return $this->response;
+    }
 }
