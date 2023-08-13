@@ -84,4 +84,8 @@ class CustomerController extends Controller
 
         return $this->response;
     }
+
+    public function detail($id){
+        return view('layout.customer.detail', ['customer' => Customer::find($id)]);
+    }
 }
