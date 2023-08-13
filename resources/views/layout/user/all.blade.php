@@ -38,9 +38,9 @@
                         <td>{{$user->firstname.' '.$user->lastname}}</td>
                         <td>{{$user->email}}</td>
                         <td>{{$user->phone}}</td>
-                        <td class="text-end">
+                        <td class="text-end" id="{{$user->id}}">
                             <a href="javascript:;" class="btn btn-info btn-xs" data-bs-toggle="tooltip" title="Bilgileri Güncelle"><i width="10" data-feather="edit"></i></a>
-                            <a href="javascript:;" class="btn btn-warning btn-xs" data-bs-toggle="tooltip" title="Şifre Değiştir"><i width="10" data-feather="key"></i></a>
+                            <a href="javascript:;" class="btn btn-warning btn-xs changePassBtn" data-bs-toggle="tooltip" title="Şifre Değiştir"><i width="10" data-feather="key"></i></a>
                             <a href="javascript:;" class="btn btn-danger btn-xs" data-bs-toggle="tooltip" title="Sil"><i width="10" data-feather="trash-2"></i></a>
                         </td>
                       </tr>
@@ -54,10 +54,53 @@
     </div>
 </div>
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="changePassModal" tabindex="-1" aria-labelledby="changePassModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="changePassModalLabel">Şifre Değiştir</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="user_id">
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Yeni Şifre:</label>
+            <input type="password" class="form-control" id="password" placeholder="Kullanıcının yeni şifresi">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+          <button type="button" class="btn btn-primary" id="savePassBtn">Kaydet</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 @endsection
 
 @section('script')
     <script>
+        $(".changePassBtn").on("click", function(){
+            var id = $(this).parent('td').attr('id');
 
+            $("#changePassModal").modal('show');
+            $("#user_id").val(id);
+        });
+
+        $("#savePassBtn").on("click", function(){
+            let user_id = $("#user_id").val();
+            let pass = $("#password").val();
+
+            axios.post('/user/change-password', {user_id:user_id, pass:pass}).then((res)=>{
+                toastr[res.data.type](res.data.message);
+                if(res.data.status){
+                    $("#changePassModal").modal('hide')
+                }
+            })
+        })
     </script>
 @endsection

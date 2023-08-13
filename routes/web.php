@@ -29,4 +29,5 @@ Route::controller(AuthController::class)->prefix('auth')->group(function(){
 
 Route::controller(UserController::class)->prefix('user')->middleware('auth')->group(function(){
     Route::get('/all', 'all');
+    Route::post('/change-password', 'change_password');
 }); 
