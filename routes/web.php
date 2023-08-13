@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
@@ -36,6 +37,13 @@ Route::controller(UserController::class)->prefix('user')->middleware('auth')->gr
     Route::post('/update', 'update');
     Route::post('/remove', 'remove');
 }); 
+
+
+Route::controller(CustomerController::class)->prefix('/customer')->middleware('auth')->group(function(){
+    Route::get('/new' , 'new');
+    Route::post('/save', 'save');
+});
+
 
 Route::controller(UploadController::class)->prefix('upload')->middleware('auth')->group(function(){
     Route::post('/profile', 'profile');
