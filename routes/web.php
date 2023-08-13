@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +26,7 @@ Route::controller(AuthController::class)->prefix('auth')->group(function(){
     Route::post('/login', 'login');
     Route::get('/register', 'showRegister');
 });
+
+Route::controller(UserController::class)->prefix('user')->middleware('auth')->group(function(){
+    Route::get('/all', 'all');
+}); 
