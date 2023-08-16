@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdvertController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MainController;
@@ -45,6 +46,11 @@ Route::controller(CustomerController::class)->prefix('/customer')->middleware('a
     Route::get('/detail/{id}', 'detail');
     Route::post('/save', 'save');
     Route::post('/update', 'update');
+});
+
+Route::controller(AdvertController::class)->prefix('advert')->middleware('auth')->group(function(){
+    Route::get('/new', 'new');
+    Route::post('/save', 'save');
 });
 
 
