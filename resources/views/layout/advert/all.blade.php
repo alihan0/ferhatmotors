@@ -73,7 +73,7 @@
                                       
                                         <ul class="dropdown-menu">
                                           <li><a class="dropdown-item" href="/advert/detail/{{$advert->id}}">Görüntüle</a></li>
-                                          <li><a class="dropdown-item" href="#">Düzenle</a></li>
+                                          <li><a class="dropdown-item" href="/advert/edit/{{$advert->id}}">Düzenle</a></li>
                                           <li><a class="dropdown-item" href="#">Durumu Değiştir</a></li>
                                           <li><a class="dropdown-item" href="#">Not Ekle</a></li>
                                           <li><hr class="dropdown-divider"></li>
