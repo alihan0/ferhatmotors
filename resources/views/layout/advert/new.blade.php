@@ -24,15 +24,58 @@
                     </div>
                     <div class="col-md-6">
                       <label for="model" class="form-label">Model</label>
-                      <input type="text" class="form-control" id="model" name="model" placeholder="2000, 2005, 2012 ...">
+                      <input type="text" class="form-control" id="model" name="model" placeholder="Passat, Megane, A6">
                     </div>
                     <div class="col-6">
                       <label for="motor" class="form-label">Motor</label>
                       <input type="text" class="form-control" id="motor" name="motor" placeholder="2.0, 3.2, 1.6">
                     </div>
-                    <div class="col-6">
+                    <div class="col-3">
                       <label for="km" class="form-label">KM</label>
                       <input type="text" class="form-control" id="km" name="km" placeholder="300.000, 450.000 ...">
+                    </div>
+                    <div class="col-3">
+                      <label for="year" class="form-label">Yıl</label>
+                      <input type="text" class="form-control" id="year" name="year" placeholder="2000, 2023 ...">
+                    </div>
+                    <div class="col-3">
+                      <label for="gear" class="form-label">Şanzıman</label>
+                      <select name="gear" id="gear" class="form-control">
+                        <option value="0">Seçin</option>
+                        <option value="Manuel">Manuel</option>
+                        <option value="Otomatik">Otomatik</option>
+                        <option value="Triptonik">Triptonik</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <label for="fuel" class="form-label">Yakıt</label>
+                      <select name="fuel" id="fuel" class="form-control">
+                        <option value="0">Seçin</option>
+                        <option value="Benzin">Benzin</option>
+                        <option value="Dizel">Dizel</option>
+                        <option value="LPG">LPG</option>
+                        <option value="Elektrik">Elektrik</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <label for="color" class="form-label">Renk</label>
+                      <input type="text" class="form-control" id="color" name="color" placeholder="Siyah, Kırmızı, Beyaz">
+                    </div>
+                    <div class="col-3">
+                      <label for="case" class="form-label">Kasa Tipi</label>
+                      <select name="case" id="case" class="form-control">
+                        <option value="0">Seçin</option>
+                        <option value="Sedan">Sedan</option>
+                        <option value="Hatchback">Hatchback</option>
+                        <option value="Station Wagon">Station Wagon</option>
+                        <option value="SUV">SUV</option>
+                        <option value="Crossover">Crossover</option>
+                        <option value="Coupe">Coupe</option>
+                        <option value="Coupe SUV">Coupe SUV</option>
+                        <option value="Convertible">Convertible</option>
+                        <option value="MPV">MPV</option>
+                        <option value="Roadster">Roadster</option>
+                      </select>
                     </div>
                     
                     <div class="col-md-6">
@@ -75,17 +118,21 @@
                         </select>
                       </div>
 
-                      <div class="col-4">
+                      <div class="col-3">
                         <label for="buy_price" class="form-label">Alış Fiyatı</label>
                         <input type="text" class="form-control" id="buy_price" name="buy_price" placeholder="500.000">
                       </div>
 
-                      <div class="col-4">
+                      <div class="col-3">
                         <label for="sell_price" class="form-label">Satış Fiyatı</label>
                         <input type="text" class="form-control" id="sell_price" name="sell_price" placeholder="1.000.000">
                       </div>
+                      <div class="col-3">
+                        <label for="damage" class="form-label">Hasar Kaydı</label>
+                        <input type="text" class="form-control" id="damage" name="damage" placeholder="100.000">
+                      </div>
 
-                      <div class="col-4">
+                      <div class="col-3">
                         <label for="buy_date" class="form-label">Alım Tarihi</label>
                         <input type="date" class="form-control" id="buy_date" name="buy_date">
                       </div>
@@ -107,15 +154,14 @@
                         
                     </h2>
                     <input type="file" name="photos[]" id="photo" multiple>
-                    <input type="text" name="photodata" id="photodata">
+                    <input type="hidden" name="photodata" id="photodata">
                   </div>
             </div>
         </div>
         </div>
-        <div class="row">
+        <div id="photoLine" class="row d-none">
           <div class="card">
             <div class="card-body" id="photoPreview">
-                
             </div>
         </div>
         </div>
@@ -159,9 +205,9 @@
               toastr[res.data.type](res.data.message);
               if (res.data.status) {
                   $("#photodata").val(res.data.paths);
+                  $("#photoLine").removeClass('d-none');
                   for (let i = 0; i < res.data.paths.length; i++) {
                     $("#photoPreview").append('<img src="/storage/'+res.data.paths[i]+'" class="wd-50 border-5 m-2" alt="...">');
-                    
                   }
               }
           }).catch((error) => {
