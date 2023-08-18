@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Advert;
+use App\Models\AdvertPhoto;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Auth;
 
 class AdvertController extends Controller
 {
@@ -14,26 +17,52 @@ class AdvertController extends Controller
     }
 
     public function save(Request $request){
-        if(empty($request->brand)){
-            $this->response["message"] = "Araç markası girin!";
-        }elseif(empty($request->model)){
-            $this->response["message"] = "Araç modeli girin!";
-        }elseif(empty($request->motor)){
-            $this->response["message"] = "Motor hacmini girin!";
-        }elseif(empty($request->km)){
-            $this->response["message"] = "KM bilgisi girin!";
-        }elseif($request->sales_type == 0){
-            $this->response["message"] = "Satış türünü seçin!";
-        }elseif($request->owner == 0){
-            $this->response["message"] = "Araç sahibini seçin!";
-        }elseif($request->status == 0){
-            $this->response["message"] = "Araç durumunu seçin!";
-        }elseif(empty($request->buy_price)){
-            $this->response["message"] = "Alış fiyatını girin!";
-        }elseif(empty($request->sell_price)){
-            $this->response["message"] = "Satış fiyatını girin!";
-        }elseif(empty($request->buy_date)){
-            $this->response["message"] = "Alım tarihini girin!";
+        if(empty($request->brand) || empty($request->model) || empty($request->km) || empty($request->year) || $request->sales_type == 0|| $request->owner == 0 || empty($request->buy_price)){
+            $this->response["message"] = "Yızldız (*) ile işaretlenen alanlar zorunludur.";
+        }else{
+            $adv = new Advert;
+            $adv->user = Auth::user()->id;
+            $adv->username = Auth::user()->firstname.' '.Auth::user()->lastname;
+            $adv->brand = trim(ucfirst($request->brand));
+            $adv->model = trim(ucfirst($request->model));
+            $adv->package = trim(ucfirst($request->package)) ?? null;
+            $adv->motor = trim(ucfirst($request->motor)) ?? null;
+            $adv->km = trim(ucfirst($request->km)) ?? null;
+            $adv->year = trim(ucfirst($request->year)) ?? null;
+            $adv->gear = trim(ucfirst($request->gear)) ?? null;
+            $adv->fuel = trim(ucfirst($request->fuel)) ?? null;
+            $adv->color = trim(ucfirst($request->color)) ?? null;
+            $adv->casetype = trim(ucfirst($request->case)) ?? null;
+            $adv->sales_type = trim(ucfirst($request->sales_type));
+            $adv->owner = trim(ucfirst($request->owner));
+            $adv->ownername = trim(ucfirst($request->ownername));
+            $adv->sahibinden_url = trim(ucfirst($request->sahibinden)) ?? null;
+            $adv->arabam_url = trim(ucfirst($request->arabam)) ?? null;
+            $adv->status = $request->status;
+            $adv->buy_price = $request->buy_price;
+            $adv->sell_price = $request->sellprice;
+            $adv->buy_date = trim(ucfirst($request->buy_date)) ?? null;
+            $adv->damage = $request->damage ?? null;
+
+            if($adv->save()){
+                if(!empty($request->photodata)){
+                    $photodata = explode(',', $request->photodata);
+                    for ($i=0; $i < count($photodata); $i++) { 
+                        $pic = new AdvertPhoto;
+                        $pic->advert = $adv->id;
+                        $pic->file = $photodata[$i];
+                        $pic->save();
+                    }
+                }
+                $this->response["type"] = "success";
+                $this->response["message"] = "İlan oluşturuldu";
+                $this->response["id"] = $adv->id;
+                $this->response["status"] = true;
+            }else{
+                $this->response["type"] = "error";
+                $this->response["message"] = "SYSTEM_ERROR";
+            }
+
         }
 
         return $this->response;

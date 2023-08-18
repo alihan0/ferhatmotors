@@ -19,23 +19,27 @@
             <div class="card-body">
                 <form class="row g-3" id="advertForm">
                     <div class="col-md-6">
-                      <label for="brand" class="form-label">Marka</label>
+                      <label for="brand" class="form-label">Marka *</label>
                       <input type="text" class="form-control" id="brand" name="brand" placeholder="Audi, Mercedes, BMW ...">
                     </div>
                     <div class="col-md-6">
-                      <label for="model" class="form-label">Model</label>
+                      <label for="model" class="form-label">Model *</label>
                       <input type="text" class="form-control" id="model" name="model" placeholder="Passat, Megane, A6">
                     </div>
-                    <div class="col-6">
+                    <div class="col-3">
                       <label for="motor" class="form-label">Motor</label>
                       <input type="text" class="form-control" id="motor" name="motor" placeholder="2.0, 3.2, 1.6">
                     </div>
                     <div class="col-3">
-                      <label for="km" class="form-label">KM</label>
+                      <label for="pack" class="form-label">Paket</label>
+                      <input type="text" class="form-control" id="pack" name="pack" placeholder="Elegance, Comfortline">
+                    </div>
+                    <div class="col-3">
+                      <label for="km" class="form-label">KM *</label>
                       <input type="text" class="form-control" id="km" name="km" placeholder="300.000, 450.000 ...">
                     </div>
                     <div class="col-3">
-                      <label for="year" class="form-label">Yıl</label>
+                      <label for="year" class="form-label">Yıl *</label>
                       <input type="text" class="form-control" id="year" name="year" placeholder="2000, 2023 ...">
                     </div>
                     <div class="col-3">
@@ -79,7 +83,7 @@
                     </div>
                     
                     <div class="col-md-6">
-                      <label for="sales_type" class="form-label">Satış Türü</label>
+                      <label for="sales_type" class="form-label">Satış Türü *</label>
                       <select id="sales_type" name="sales_type" class="form-select">
                         <option value="0" selected>Seçin</option>
                         <option value="1">Sahiplik</option>
@@ -87,13 +91,14 @@
                       </select>
                     </div>
                     <div class="col-md-6">
-                        <label for="owner" class="form-label">Araç Sahibi</label>
+                        <label for="owner" class="form-label">Araç Sahibi *</label>
                         <select id="owner" name="owner" class="form-select">
                           <option value="0" selected>Seçin</option>
                             @foreach ($users as $user)
                                 <option value="{{$user->id}}">{{$user->firstname.' '.$user->lastname}}</option>
                             @endforeach
                         </select>
+                        <input type="hidden" name="ownername" id="ownername">
                       </div>
                     
                       <div class="col-4">
@@ -105,7 +110,7 @@
                         <input type="text" class="form-control" id="arabam" name="arabam" placeholder="https://www.arabam.com/ilan/galeriden-satilik-...">
                       </div>
                       <div class="col-4">
-                        <label for="status" class="form-label">Araç Durumu</label>
+                        <label for="status" class="form-label">Araç Durumu *</label>
                         <select id="status" name="status" class="form-select">
                           <option value="0" selected>Seçin</option>
                           <option value="1">Satılık</option>
@@ -119,7 +124,7 @@
                       </div>
 
                       <div class="col-3">
-                        <label for="buy_price" class="form-label">Alış Fiyatı</label>
+                        <label for="buy_price" class="form-label">Alış Fiyatı *</label>
                         <input type="text" class="form-control" id="buy_price" name="buy_price" placeholder="500.000">
                       </div>
 
@@ -140,7 +145,6 @@
                     <div class="col-12">
                       <a href="javascript:;" class="btn btn-primary" id="advertSaveBtn">Kaydet</a>
                     </div>
-                  </form>
             </div>
         </div>
     </div>
@@ -167,7 +171,7 @@
         </div>
     </div>
 </div>
-
+</form>
 @endsection
 
 @section('script')
@@ -214,5 +218,10 @@
               console.error(error);
           });
       });
+      $("#owner").on("change", function(){
+        if($(this).val() != 0){
+          $("#ownername").val($("#owner :selected").html());
+        }
+      })
     </script>
 @endsection
