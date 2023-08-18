@@ -52,6 +52,7 @@ Route::controller(AdvertController::class)->prefix('advert')->middleware('auth')
     Route::get('/new', 'new');
     Route::get('all', 'all');
     Route::post('/save', 'save');
+    Route::post('/change-status', 'change_status');
 });
 
 

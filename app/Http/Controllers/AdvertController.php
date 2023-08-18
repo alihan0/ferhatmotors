@@ -71,4 +71,23 @@ class AdvertController extends Controller
     public function all(){
         return view('layout.advert.all', ['adverts' => Advert::all()]);
     }
+
+    public function change_status(Request $request){
+
+        if($request->id && $request->status){
+            $advert = Advert::find($request->id);
+            if($advert){
+                $advert->status = $request->status;
+                if($advert->save()){
+                    $this->response["type"] = "success";
+                    $this->response["message"] = "Durum Güncellendi!";
+                    $this->response["status"] = true;
+                }else{
+                    $this->response["message"] = "Durum güncellenirken bir hata oluştu!";
+                }
+            }
+        }
+
+        return $this->response;
+    }
 }

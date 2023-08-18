@@ -74,7 +74,7 @@
                                         <ul class="dropdown-menu">
                                           <li><a class="dropdown-item" href="/advert/detail/{{$advert->id}}">Görüntüle</a></li>
                                           <li><a class="dropdown-item" href="/advert/edit/{{$advert->id}}">Düzenle</a></li>
-                                          <li><a class="dropdown-item" href="#">Durumu Değiştir</a></li>
+                                          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changeStatusModal{{$advert->id}}" href="javascript:;">Durumu Değiştir</a></li>
                                           <li><a class="dropdown-item" href="#">Not Ekle</a></li>
                                           <li><hr class="dropdown-divider"></li>
                                           <li><a class="dropdown-item" href="#">Satış Yap</a></li>
@@ -83,6 +83,29 @@
                                       </div>
                                 </td>
                             </tr>
+
+
+                            <div class="modal fade" id="changeStatusModal{{$advert->id}}" tabindex="-1">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">Durumu Değiştir</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <select class="form-control new_status" advert-id="{{$advert->id}}">
+                                            <option value="1" {{$advert->status == 1 ? "selected":""}}>Satılık</option>
+                                            <option value="2" {{$advert->status == 2 ? "selected":""}}>Kullanımda</option>
+                                            <option value="3" {{$advert->status == 3 ? "selected":""}}>Sahibinde</option>
+                                            <option value="4" {{$advert->status == 4 ? "selected":""}}>Kirada</option>
+                                            <option value="5" {{$advert->status == 5 ? "selected":""}}>Onarımda</option>
+                                            <option value="6" {{$advert->status == 6 ? "selected":""}}>Hazırlanıyor</option>
+                                        </select>
+
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                         @endforeach
                       
                       
@@ -102,5 +125,18 @@
         }
     });
         
+    $(".new_status").on("change", function(){
+        var id = $(this).attr('advert-id');
+        var status = $(this).val();
+
+        axios.post('/advert/change-status', {id:id, status:status}).then((res) => {
+            toastr[res.data.type](res.data.message);
+            if(res.data.status){
+                setInterval(() => {
+                    window.location.reload();
+                }, 500);
+            }
+        }); 
+    })
     </script>
 @endsection
