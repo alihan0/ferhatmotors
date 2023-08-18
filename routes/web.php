@@ -54,6 +54,7 @@ Route::controller(AdvertController::class)->prefix('advert')->middleware('auth')
     Route::post('/save', 'save');
     Route::post('/change-status', 'change_status');
     Route::post('/add-note', 'add_note');
+    Route::post('/sell', 'sell');
 });
 
 

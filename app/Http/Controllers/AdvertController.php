@@ -118,4 +118,32 @@ class AdvertController extends Controller
 
         return $this->response;
     }
+
+    public function sell(Request $request){
+
+        if($request->id){
+            $advert = Advert::find($request->id);
+            if($advert){
+                if(empty($request->amount)){
+                    $this->response["message"] = "Tutar girin...";
+                }else{
+                    $advert->sold_price = $request->amount;
+                    $advert->sold_date  = date('Y-m-d');
+                    $advert->status = 7;
+                    $advert->seller = Auth::user()->id;
+                    $advert->sellername = Auth::user()->firstname.' '.Auth::user()->lastname;
+
+                    if($advert->save()){
+                        $this->response["type"] = "success";
+                        $this->response["message"] = "Araç Satıldı!";
+                        $this->response["status"] = true;
+                    }else{
+                        $this->response["message"] = "Araç satılırken bir hata oluştu!";
+                    }
+                }
+            }
+        }
+
+        return $this->response;
+    }
 }
