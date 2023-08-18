@@ -51,6 +51,7 @@ Route::controller(CustomerController::class)->prefix('/customer')->middleware('a
 Route::controller(AdvertController::class)->prefix('advert')->middleware('auth')->group(function(){
     Route::get('/new', 'new');
     Route::get('all', 'all');
+    Route::get('/detail/{id}', 'detail');
     Route::post('/save', 'save');
     Route::post('/change-status', 'change_status');
     Route::post('/add-note', 'add_note');

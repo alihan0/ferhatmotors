@@ -146,4 +146,8 @@ class AdvertController extends Controller
 
         return $this->response;
     }
+
+    public function detail($id){
+        return view('layout.advert.detail', ['advert' => Advert::find($id)]);
+    }
 }

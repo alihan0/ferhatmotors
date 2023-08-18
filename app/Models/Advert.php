@@ -12,4 +12,12 @@ class Advert extends Model
     public function Owner(){
         return $this->hasOne(User::class, 'id', 'owner');
     }
+    
+    public function Creator(){
+        return $this->hasOne(User::class, 'id', 'user');
+    }
+
+    public function Seller(){
+        return $this->hasOne(User::class, 'id', 'seller');
+    }
 }
