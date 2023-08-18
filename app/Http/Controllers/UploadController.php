@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+
 
 class UploadController extends Controller
 {
@@ -34,4 +36,26 @@ class UploadController extends Controller
         }
         return $this->response;
     }
+
+    public function photos(Request $request)
+{
+    $uploadedPaths = [];
+
+    foreach ($request->file('photos') as $photo) {
+        $extension = $photo->getClientOriginalExtension();
+
+        if ($extension === 'jpg' || $extension === 'png') {
+            $path = Storage::disk('public')->put('photos', $photo);
+            $uploadedPaths[] = $path;
+        }
+    }
+
+    return response()->json([
+        'message' => 'Fotoğraflar başarıyla yüklendi',
+        'status' => true,
+        'type' => 'success',
+        'paths' => $uploadedPaths  // Dosya yollarını dizi olarak döndür
+    ]);
+}
+
 }

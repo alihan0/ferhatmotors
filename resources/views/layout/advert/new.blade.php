@@ -97,6 +97,29 @@
             </div>
         </div>
     </div>
+    <div class="col-6">
+        <div class="row mb-3">
+          <div class="card">
+            <div class="card-body">
+                <div class="col-12 ">
+                    <h2 class="card-title d-flex justify-content-between">Fotoğraf
+                      <a href="#" class="btn btn-primary btn-sm"><i style="width:12px" data-feather="plus"></i></a>
+                        
+                    </h2>
+                    <input type="file" name="photos[]" id="photo" multiple>
+                    <input type="text" name="photodata" id="photodata">
+                  </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+          <div class="card">
+            <div class="card-body" id="photoPreview">
+                
+            </div>
+        </div>
+        </div>
+    </div>
 </div>
 
 @endsection
@@ -116,5 +139,34 @@
                 }
             });
         });
+
+        $("#photo").on("change", function(e) {
+          var files = e.target.files;
+
+          console.log(files);
+          
+          var formData = new FormData();
+
+          for (var i = 0; i < files.length; i++) {
+              formData.append('photos[]', files[i]);
+          }
+
+          axios.post('/upload/photos', formData, {
+              headers: {
+                  'Content-Type': 'multipart/form-data'
+              }
+          }).then((res) => {
+              toastr[res.data.type](res.data.message);
+              if (res.data.status) {
+                  $("#photodata").val(res.data.paths);
+                  for (let i = 0; i < res.data.paths.length; i++) {
+                    $("#photoPreview").append('<img src="/storage/'+res.data.paths[i]+'" class="wd-50 border-5 m-2" alt="...">');
+                    
+                  }
+              }
+          }).catch((error) => {
+              console.error(error);
+          });
+      });
     </script>
 @endsection

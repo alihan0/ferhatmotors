@@ -56,4 +56,5 @@ Route::controller(AdvertController::class)->prefix('advert')->middleware('auth')
 
 Route::controller(UploadController::class)->prefix('upload')->middleware('auth')->group(function(){
     Route::post('/profile', 'profile');
+    Route::post('/photos', 'photos');
 });
