@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advert;
+use App\Models\AdvertNote;
 use App\Models\AdvertPhoto;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -84,6 +85,33 @@ class AdvertController extends Controller
                     $this->response["status"] = true;
                 }else{
                     $this->response["message"] = "Durum güncellenirken bir hata oluştu!";
+                }
+            }
+        }
+
+        return $this->response;
+    }
+
+    public function add_note(Request $request){
+
+        if($request->id){
+            if(empty($request->note)){
+                $this->response["message"] = "Notunuzu girin...";
+            }else{
+                $advert = Advert::find($request->id);
+                if($advert){
+                    $note = new AdvertNote;
+                    $note->advert = $request->id;
+                    $note->user = Auth::user()->id;
+                    $note->note = trim(ucfirst($request->note));
+
+                    if($note->save()){
+                        $this->response["type"] = "success";
+                        $this->response["message"] = "Not eklendi";
+                        $this->response["status"] = true;
+                    }else{
+                        $this->response["message"] = "Not eklenirken bir hata oluştu!";
+                    }
                 }
             }
         }

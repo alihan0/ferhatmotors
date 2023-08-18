@@ -75,7 +75,7 @@
                                           <li><a class="dropdown-item" href="/advert/detail/{{$advert->id}}">Görüntüle</a></li>
                                           <li><a class="dropdown-item" href="/advert/edit/{{$advert->id}}">Düzenle</a></li>
                                           <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changeStatusModal{{$advert->id}}" href="javascript:;">Durumu Değiştir</a></li>
-                                          <li><a class="dropdown-item" href="#">Not Ekle</a></li>
+                                          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addNote{{$advert->id}}" href="javascript:;">Not Ekle</a></li>
                                           <li><hr class="dropdown-divider"></li>
                                           <li><a class="dropdown-item" href="#">Satış Yap</a></li>
 
@@ -106,6 +106,24 @@
                                   </div>
                                 </div>
                               </div>
+
+                              <div class="modal fade" id="addNote{{$advert->id}}" tabindex="-1">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">Modal title</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      
+                                        <textarea class="form-control" id="note{{$advert->id}}" cols="30" rows="10" placeholder="Notunuzu girin..."></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-primary saveNote" advert-id="{{$advert->id}}">Kaydet</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                         @endforeach
                       
                       
@@ -130,6 +148,20 @@
         var status = $(this).val();
 
         axios.post('/advert/change-status', {id:id, status:status}).then((res) => {
+            toastr[res.data.type](res.data.message);
+            if(res.data.status){
+                setInterval(() => {
+                    window.location.reload();
+                }, 500);
+            }
+        }); 
+    });
+
+    $(".saveNote").on("click", function(){
+        var note = $("#note"+$(this).attr('advert-id')).val();
+        var id   = $(this).attr('advert-id');
+
+        axios.post('/advert/add-note', {id:id,note:note}).then((res) => {
             toastr[res.data.type](res.data.message);
             if(res.data.status){
                 setInterval(() => {
