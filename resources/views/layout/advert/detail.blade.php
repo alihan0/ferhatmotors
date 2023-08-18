@@ -37,7 +37,7 @@
 
 <div class="row">
     <div class="col-4">
-        <div class="row">
+        <div class="row mb-3">
             <div class="col">
                 <div class="card">
                     <div class="card-body">
@@ -107,6 +107,33 @@
                 </div>
             </div>
         </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item justify-content-between d-flex"><b>Alış Fiyatı: </b> {{$advert->buy_price}}</li>
+                            <li class="list-group-item justify-content-between d-flex"><b>Satış Fiyatı: </b> {{$advert->sell_price ?? "-"}}</li>
+                            <li class="list-group-item justify-content-between d-flex"><b>Satış Tutarı: </b> {{$advert->sold_price ?? "-"}}</li>
+                          </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="{{$advert->sahibinden_url}}" target="_blank" class="btn text-white btn-warning w-100 mb-2">SAHİBİNDEN.COM</a>
+                        <a href="{{$advert->arabam_url}}" target="_blank" class="btn btn-danger w-100">ARABAM.COM</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
