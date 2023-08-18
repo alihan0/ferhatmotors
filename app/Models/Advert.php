@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Advert extends Model
 {
     use HasFactory;
+
+    public function Owner(){
+        return $this->hasOne(User::class, 'id', 'owner');
+    }
 }

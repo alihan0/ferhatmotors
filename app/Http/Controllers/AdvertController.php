@@ -67,4 +67,8 @@ class AdvertController extends Controller
 
         return $this->response;
     }
+
+    public function all(){
+        return view('layout.advert.all', ['adverts' => Advert::all()]);
+    }
 }
