@@ -150,6 +150,7 @@
                         </div>
                         @else
                         <a href="/advert/edit/{{$advert->id}}" target="_blank" class="btn text-white btn-primary w-100 mb-2">İlanı Düzenle</a>
+                        <a href="javascript:;" target="_blank" class="btn text-white btn-primary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addExpense">Masraf Ekle</a>
                         <a href="javascript:;" target="_blank" class="btn btn-info w-100 mb-2" data-bs-toggle="modal" data-bs-target="#changeStatusModal">İlan Durumunu Değiştir</a>
                         <a href="javascript:;" target="_blank" class="btn btn-warning w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addNote">İlana Not Ekle</a>
                         <a href="javascript:;" target="_blank" class="btn btn-success w-100 mb-2" data-bs-toggle="modal" data-bs-target="#sell">Satıldı Olarak İşaretle</a>
@@ -265,6 +266,30 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="addExpense" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Durumu Değiştir</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <label for="expenseType" class="form-label">Masraf Türü</label>
+                <input type="text" class="form-control" id="expenseType" placeholder="Noter, Tamir, Evrak...">
+              </div>
+              <div class="mb-3">
+                <label for="expenseAmount" class="form-label">Masraf Tutarı</label>
+                <input type="text" class="form-control" id="expenseAmount" placeholder="5.000, 2.000 ...">
+              </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="saveExpense" advert-id="{{$advert->id}}"> Kaydet</button>
+          </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @section('script')
@@ -304,6 +329,20 @@
         var amount = $("#amount").val();
 
         axios.post('/advert/sell', {id:id, amount:amount}).then((res) => {
+            toastr[res.data.type](res.data.message);
+            if(res.data.status){
+                setInterval(() => {
+                    window.location.reload();
+                }, 500);
+            }
+        }); 
+    });
+    $("#saveExpense").on("click", function(){
+        var id   = $(this).attr('advert-id');
+        var type = $("#expenseType").val();
+        var amount = $("#expenseAmount").val();
+
+        axios.post('/advert/add-expense', {id:id, type:type, amount:amount}).then((res) => {
             toastr[res.data.type](res.data.message);
             if(res.data.status){
                 setInterval(() => {

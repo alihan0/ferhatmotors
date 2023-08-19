@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Advert;
 use App\Models\AdvertNote;
 use App\Models\AdvertPhoto;
+use App\Models\Expense;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
@@ -150,4 +151,31 @@ class AdvertController extends Controller
     public function detail($id){
         return view('layout.advert.detail', ['advert' => Advert::find($id)]);
     }
+
+    public function add_expense(Request $request){
+
+        if($request->id){
+            $advert = Advert::find($request->id);
+            if($advert){
+                if(empty($request->type) || empty($request->amount)){
+                    $this->response["message"] = "Boş alan bırakmayın!";
+                }else{
+                    $exp = new Expense;
+                    $exp->advert = $request->id;
+                    $exp->user = Auth::user()->id;
+                    $exp->type = trim(ucfirst($request->type));
+                    $exp->amount = $request->amount;
+                    if($exp->save()){
+                        $this->response["type"] = "success";
+                        $this->response["message"] = "Harcama eklendi.";
+                        $this->response["status"] = true;
+                    }else{
+                        $this->response["message"] = "Harcama eklenirken bir hata oluştu!";
+                    }
+                }
+            }
+        }
+
+        return $this->response;
+    } 
 }
