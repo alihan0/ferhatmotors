@@ -144,11 +144,17 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
+                        @if ($advert->status == 7)
+                        <div class="alert alert-primary" role="alert">
+                            Bu ilan <b>{{$advert->sold_date}}</b> tarihinde <u>Satıldı</u> olarak işaretlendiği için değişiklik yapamazsınız.
+                        </div>
+                        @else
                         <a href="/advert/edit/{{$advert->id}}" target="_blank" class="btn text-white btn-primary w-100 mb-2">İlanı Düzenle</a>
                         <a href="javascript:;" target="_blank" class="btn btn-info w-100 mb-2" data-bs-toggle="modal" data-bs-target="#changeStatusModal">İlan Durumunu Değiştir</a>
                         <a href="javascript:;" target="_blank" class="btn btn-warning w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addNote">İlana Not Ekle</a>
                         <a href="javascript:;" target="_blank" class="btn btn-success w-100 mb-2" data-bs-toggle="modal" data-bs-target="#sell">Satıldı Olarak İşaretle</a>
                         <a href="javascript:;" target="_blank" class="btn btn-danger w-100 mb-2">İlanı Sil</a>
+                        @endif
                     </div>
                 </div>
             </div>
