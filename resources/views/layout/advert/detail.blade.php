@@ -145,8 +145,8 @@
                 <div class="card">
                     <div class="card-body">
                         <a href="/advert/edit/{{$advert->id}}" target="_blank" class="btn text-white btn-primary w-100 mb-2">İlanı Düzenle</a>
-                        <a href="javascript:;" target="_blank" class="btn btn-info w-100 mb-2">İlan Durumunu Değiştir</a>
-                        <a href="javascript:;" target="_blank" class="btn btn-warning w-100 mb-2">İlana Not Ekle</a>
+                        <a href="javascript:;" target="_blank" class="btn btn-info w-100 mb-2" data-bs-toggle="modal" data-bs-target="#changeStatusModal">İlan Durumunu Değiştir</a>
+                        <a href="javascript:;" target="_blank" class="btn btn-warning w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addNote">İlana Not Ekle</a>
                         <a href="javasript:;" target="_blank" class="btn btn-success w-100 mb-2">Satıldı Olarak İşaretle</a>
                         <a href="javascript:;" target="_blank" class="btn btn-danger w-100 mb-2">İlanı Sil</a>
                     </div>
@@ -186,9 +186,9 @@
                     <div class="card-body">
                         <ul class="list-group">
                             @foreach ($advert->Note as $item)
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <p>{{$item->note}}</p>
-                                    <span>
+                                <li class="list-group-item text-center d-flex align-items-center justify-content-between align-center">
+                                    <p class="border-end px-4" style="width:80%">{{$item->note}}</p>
+                                    <span class="text-muted text-center">
                                         {{$item->User->firstname.' '.$item->User->lastname}}
                                         <br>
                                         {{date_format($item->created_at,"d M, Y")}}
@@ -204,6 +204,43 @@
 </div>
 
 
+<div class="modal fade" id="changeStatusModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Durumu Değiştir</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <select class="form-control" id="new_status" advert-id="{{$advert->id}}">
+                <option value="1" {{$advert->status == 1 ? "selected":""}}>Satılık</option>
+                <option value="2" {{$advert->status == 2 ? "selected":""}}>Kullanımda</option>
+                <option value="3" {{$advert->status == 3 ? "selected":""}}>Sahibinde</option>
+                <option value="4" {{$advert->status == 4 ? "selected":""}}>Kirada</option>
+                <option value="5" {{$advert->status == 5 ? "selected":""}}>Onarımda</option>
+                <option value="6" {{$advert->status == 6 ? "selected":""}}>Hazırlanıyor</option>
+            </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="addNote" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Not Ekle</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+            <textarea class="form-control" id="note" cols="30" rows="10" placeholder="Notunuzu girin..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="saveNote" advert-id="{{$advert->id}}">Kaydet</button>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @section('script')
@@ -211,5 +248,32 @@
 <script src="/static/assets/vendors/jquery-mousewheel/jquery.mousewheel.js"></script>
 <script src="/static/assets/js/carousel.js"></script>
 
-    <script></script>
+    <script>
+        $("#new_status").on("change", function(){
+        var id = $(this).attr('advert-id');
+        var status = $(this).val();
+
+        axios.post('/advert/change-status', {id:id, status:status}).then((res) => {
+            toastr[res.data.type](res.data.message);
+            if(res.data.status){
+                setInterval(() => {
+                    window.location.reload();
+                }, 500);
+            }
+        }); 
+    });
+    $("#saveNote").on("click", function(){
+        var note = $("#note").val();
+        var id   = $(this).attr('advert-id');
+
+        axios.post('/advert/add-note', {id:id,note:note}).then((res) => {
+            toastr[res.data.type](res.data.message);
+            if(res.data.status){
+                setInterval(() => {
+                    window.location.reload();
+                }, 500);
+            }
+        }); 
+    });
+    </script>
 @endsection
