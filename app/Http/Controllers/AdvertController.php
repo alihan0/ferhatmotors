@@ -75,6 +75,10 @@ class AdvertController extends Controller
         return view('layout.advert.all', ['adverts' => Advert::all()]);
     }
 
+    public function sold(){
+        return view('layout.advert.sold', ['adverts' => Advert::where('status', 7)->get()]);
+    }
+
     public function change_status(Request $request){
 
         if($request->id && $request->status){
