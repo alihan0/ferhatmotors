@@ -144,11 +144,11 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{$advert->sahibinden_url}}" target="_blank" class="btn text-white btn-warning w-100 mb-2">İlanı Düzenle</a>
-                        <a href="{{$advert->arabam_url}}" target="_blank" class="btn btn-danger w-100 mb-2">İlan Durumunu Değiştir</a>
-                        <a href="{{$advert->arabam_url}}" target="_blank" class="btn btn-danger w-100 mb-2">Satıldı Olarak İşaretle</a>
-                        <a href="{{$advert->arabam_url}}" target="_blank" class="btn btn-danger w-100 mb-2">İlana Not Ekle</a>
-                        <a href="{{$advert->arabam_url}}" target="_blank" class="btn btn-danger w-100 mb-2">İlanı Sil</a>
+                        <a href="/advert/edit/{{$advert->id}}" target="_blank" class="btn text-white btn-primary w-100 mb-2">İlanı Düzenle</a>
+                        <a href="javascript:;" target="_blank" class="btn btn-info w-100 mb-2">İlan Durumunu Değiştir</a>
+                        <a href="javascript:;" target="_blank" class="btn btn-warning w-100 mb-2">İlana Not Ekle</a>
+                        <a href="javasript:;" target="_blank" class="btn btn-success w-100 mb-2">Satıldı Olarak İşaretle</a>
+                        <a href="javascript:;" target="_blank" class="btn btn-danger w-100 mb-2">İlanı Sil</a>
                     </div>
                 </div>
             </div>
