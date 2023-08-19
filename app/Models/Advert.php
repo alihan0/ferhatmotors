@@ -24,4 +24,8 @@ class Advert extends Model
     public function Photos(){
         return $this->hasMany(AdvertPhoto::class, 'advert', 'id');
     }
+
+    public function Note(){
+        return $this->hasMany(AdvertNote::class, 'advert', 'id')->orderBy('id', 'desc');
+    }
 }

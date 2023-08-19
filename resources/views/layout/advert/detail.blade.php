@@ -157,7 +157,7 @@
 
     </div>
     <div class="col-8">
-        <div class="row mb-3">
+        <div class="row">
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
@@ -180,10 +180,28 @@
                 </div>
               </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="list-group">
+                            @foreach ($advert->Note as $item)
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <p>{{$item->note}}</p>
+                                    <span>
+                                        {{$item->User->firstname.' '.$item->User->lastname}}
+                                        <br>
+                                        {{date_format($item->created_at,"d M, Y")}}
+                                    </span>
+                                </li>
+                            @endforeach
+                          </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-
 
 
 @endsection

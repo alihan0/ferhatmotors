@@ -10,4 +10,8 @@ class AdvertNote extends Model
     use HasFactory;
 
     protected $table = "advert_notes";
+
+    public function User(){
+        return $this->belongsTo(User::class, 'user', 'id');
+    }
 }
