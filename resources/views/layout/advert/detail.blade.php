@@ -174,8 +174,6 @@
                         <div class="item">
                             <img src="/storage/{{$photo->file}}" alt="item-image" style="max-height: 50vh; width: 100%; object-fit: cover;">
                         </div>
-                        
-
                         @endforeach
                         @else
                         <div class="item">
@@ -187,13 +185,44 @@
                 </div>
               </div>
         </div>
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Harcamalar</h2>
+                        @if ($advert->Expense->count() > 0)
+                        <ul class="list-group">
+                            @foreach ($advert->Expense as $item)
+                                <li class="list-group-item text-center d-flex align-items-center justify-content-between align-center">
+                                    <p class="px-4 w-50 text-start " >{{$item->type}}</p>
+                                    <p class="px-4" >- {{$item->amount}} TL</p>
+
+                                    <span class="text-muted text-center">
+                                        {{$item->User->firstname.' '.$item->User->lastname}}
+                                        <br>
+                                        {{date_format($item->created_at,"d M, Y")}}
+                                    </span>
+                                </li>
+                            @endforeach
+                          </ul>
+                        @else
+                        <div class="alert alert-primary" role="alert">
+                            Bu araç için henüz bir harcama yapılmamış...
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
+                        <h2 class="card-title">Notlar</h2>
+                        @if ($advert->Note->count() > 0)
                         <ul class="list-group">
                             @foreach ($advert->Note as $item)
-                                <li class="list-group-item text-center d-flex align-items-center justify-content-between align-center">
+                                <li class="list-group-item text-start d-flex align-items-center justify-content-between align-center">
                                     <p class="border-end px-4" style="width:80%">{{$item->note}}</p>
                                     <span class="text-muted text-center">
                                         {{$item->User->firstname.' '.$item->User->lastname}}
@@ -203,6 +232,11 @@
                                 </li>
                             @endforeach
                           </ul>
+                        @else
+                        <div class="alert alert-primary" role="alert">
+                            Bu araç için henüz bir not eklenmemiş...
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
