@@ -97,7 +97,7 @@
                                     @endif
                             </li>
 
-                            <li class="list-group-item justify-content-between d-flex"><b>Satış Tipi: </b> {!!$advert->sales_type == 1 ? '<span class="badge bg-primary">Sahiplik</span>' : '<span class="badge bg-primary">Komisyon</span>'!!}</li>
+                            <li class="list-group-item justify-content-between d-flex"><b>Satış Tipi: </b> {!!$advert->sales_type == 1 ? '<span class="badge bg-primary">Sahiplik</span>' : '<b>'.$profit.'</b><span class="badge bg-primary">Komisyon</span>'!!}</li>
                             <li class="list-group-item justify-content-between d-flex"><b>Araç Sahibi: </b> {!! $advert->Owner != "" ? $advert->Owner->firstname.' '.$advert->Owner->lastname : '<strike class="text-danger">'.$advert->ownername.'</strike>' !!}</li>
                             <li class="list-group-item justify-content-between d-flex"><b>Alım Tarihi: </b> {{$advert->buy_date}}</li>
                             <li class="list-group-item justify-content-between d-flex"><b>İlanı Oluşturan: </b> {!! $advert->Creator != "" ? $advert->Creator->firstname.' '.$advert->Creator->lastname : '<strike class="text-danger">'.$advert->username.'</strike>' !!}</li>

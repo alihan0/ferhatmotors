@@ -163,6 +163,17 @@
             </div>
         </div>
         </div>
+        <div class="row mb-3 d-none" id="profitRow">
+          <div class="card">
+            <div class="card-body">
+                <div class="col-12 ">
+                    <h2 class="card-title d-flex justify-content-between">Komisyon Oranı</h2>
+                    <input type="text" name="profit" id="profit" class="form-control" placeholder="10, 10.000..." value="0">
+                    <p class="text-muted mt-2">Yüzdelik kar oranı ya da doğrudan rakam girin.</p>
+                  </div>
+            </div>
+        </div>
+        </div>
         <div id="photoLine" class="row d-none">
           <div class="card">
             <div class="card-body" id="photoPreview">
@@ -222,6 +233,13 @@
         if($(this).val() != 0){
           $("#ownername").val($("#owner :selected").html());
         }
-      })
+      });
+      $("#sales_type").on("change", function(){
+        if($(this).val() == 2){
+          $("#profitRow").removeClass('d-none');
+        }else{
+          $("#profitRow").addClass('d-none');
+        }
+      });
     </script>
 @endsection

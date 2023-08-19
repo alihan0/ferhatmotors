@@ -43,6 +43,7 @@ class AdvertController extends Controller
             $adv->status = $request->status;
             $adv->buy_price = $request->buy_price;
             $adv->sell_price = $request->sellprice;
+            $adv->profit = $request->profit;
             $adv->buy_date = trim(ucfirst($request->buy_date)) ?? null;
             $adv->damage = $request->damage ?? null;
 
@@ -149,7 +150,14 @@ class AdvertController extends Controller
     }
 
     public function detail($id){
-        return view('layout.advert.detail', ['advert' => Advert::find($id)]);
+        $advert = Advert::find($id);
+
+        if($advert->profit < 100){
+            $profit = '%'.$advert->profit;
+        }else{
+            $profit = $advert->profit.'TL';
+        }
+        return view('layout.advert.detail', ['advert' => $advert, 'profit' => $profit]);
     }
 
     public function add_expense(Request $request){
