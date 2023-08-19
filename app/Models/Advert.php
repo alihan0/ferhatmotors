@@ -20,4 +20,8 @@ class Advert extends Model
     public function Seller(){
         return $this->hasOne(User::class, 'id', 'seller');
     }
+
+    public function Photos(){
+        return $this->hasMany(AdvertPhoto::class, 'advert', 'id');
+    }
 }

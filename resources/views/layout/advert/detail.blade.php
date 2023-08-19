@@ -1,7 +1,13 @@
 @extends('master')
 
 @section('title', 'Araç Detayları')
-    
+
+@section('style')
+<link rel="stylesheet" href="/static/assets/vendors/owl.carousel/owl.carousel.min.css">
+<link rel="stylesheet" href="/static/assets/vendors/owl.carousel/owl.theme.default.min.css">
+<link rel="stylesheet" href="/static/assets/vendors/animate.css/animate.min.css">
+@endsection
+
 @section('content')
 <div class="d-flex justify-content-between">
     <h4 class="page-title">İlan Detayları</h4>
@@ -37,6 +43,7 @@
 
 <div class="row">
     <div class="col-4">
+        
         <div class="row mb-3">
             <div class="col">
                 <div class="card">
@@ -133,7 +140,46 @@
             </div>
         </div>
 
+        <div class="row mb-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="{{$advert->sahibinden_url}}" target="_blank" class="btn text-white btn-warning w-100 mb-2">İlanı Düzenle</a>
+                        <a href="{{$advert->arabam_url}}" target="_blank" class="btn btn-danger w-100 mb-2">İlan Durumunu Değiştir</a>
+                        <a href="{{$advert->arabam_url}}" target="_blank" class="btn btn-danger w-100 mb-2">Satıldı Olarak İşaretle</a>
+                        <a href="{{$advert->arabam_url}}" target="_blank" class="btn btn-danger w-100 mb-2">İlana Not Ekle</a>
+                        <a href="{{$advert->arabam_url}}" target="_blank" class="btn btn-danger w-100 mb-2">İlanı Sil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+
+    </div>
+    <div class="col-8">
+        <div class="row mb-3">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="owl-carousel owl-theme owl-fadeout">
+                      @if ($advert->Photos->count() > 0)
+                        @foreach ($advert->Photos as $photo)
+                        <div class="item">
+                            <img src="/storage/{{$photo->file}}" alt="item-image" style="max-height: 50vh; width: 100%; object-fit: cover;">
+                        </div>
+                        
+
+                        @endforeach
+                        @else
+                        <div class="item">
+                            <img src="/static/assets/images/photo.jpg" alt="item-image" style="max-height: 50vh; width: 100%; object-fit: cover;">
+                          </div>
+                      @endif
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
     </div>
 </div>
 
@@ -143,5 +189,9 @@
 @endsection
 
 @section('script')
+<script src="/static/assets/vendors/owl.carousel/owl.carousel.min.js"></script>
+<script src="/static/assets/vendors/jquery-mousewheel/jquery.mousewheel.js"></script>
+<script src="/static/assets/js/carousel.js"></script>
+
     <script></script>
 @endsection
