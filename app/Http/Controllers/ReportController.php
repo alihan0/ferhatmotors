@@ -12,6 +12,10 @@ class ReportController extends Controller
         $year  = Advert::where('status', 7)->whereYear('sold_date', now()->year)->get();
         $all   = Advert::where('status', 7)->get();
 
-        return view('layout.report.revenue', ['month' => $month, 'year' => $year, 'all' => $all]);
+        $monthprice = $month->sum('sold_price');
+        $yearprice = $year->sum('sold_price');
+        $allprice = $all->sum('sold_price');
+
+        return view('layout.report.revenue', ['month' => $month, 'year' => $year, 'all' => $all, 'monthprice' => $monthprice, 'yearprice' => $yearprice, 'allprice' => $allprice]);
     }
 }

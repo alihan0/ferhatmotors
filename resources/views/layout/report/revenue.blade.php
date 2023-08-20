@@ -37,28 +37,24 @@
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">İlan</th>
-                        <th scope="col">Satış Fiyatı</th>
+                        <th scope="col">Marka / Model</th>
                         <th scope="col">Satış Tarihi</th>
+                        <th scope="col" class="text-end">Satış Fiyatı</th>
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach ($month as $m)
                       <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <th scope="row">{{$m->id}}</th>
+                        <td>{{$m->brand.'/'.$m->model}}</td>
+                        <td>{{$m->sold_date}}</td>
+                        <td class="text-end">{{$m->sold_price}} ₺</td>
                       </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
+                      
+                      @endforeach
+                      <tr class="fw-bold text-end">
+                        <td colspan="3" class="">Toplam:</td>
+                        <td class="" style="width:10%">{{$monthprice}} ₺</td>
                       </tr>
                     </tbody>
                   </table>
@@ -66,10 +62,66 @@
         </div>
     </div>
     <div class="tab-pane fade" id="year" role="tabpanel" aria-labelledby="year-line-tab">
-        {{$year}}
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Marka / Model</th>
+                        <th scope="col">Satış Tarihi</th>
+                        <th scope="col" class="text-end">Satış Fiyatı</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($year as $y)
+                      <tr>
+                        <th scope="row">{{$y->id}}</th>
+                        <td>{{$y->brand.'/'.$y->model}}</td>
+                        <td>{{$y->sold_date}}</td>
+                        <td class="text-end">{{$y->sold_price}} ₺</td>
+                      </tr>
+                      
+                      @endforeach
+                      <tr class="fw-bold text-end">
+                        <td colspan="3" class="">Toplam:</td>
+                        <td class="" style="width:10%">{{$yearprice}} ₺</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
     </div>
     <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-line-tab">
-        {{$all}}
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Marka / Model</th>
+                        <th scope="col">Satış Tarihi</th>
+                        <th scope="col" class="text-end">Satış Fiyatı</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($all as $a)
+                      <tr>
+                        <th scope="row">{{$a->id}}</th>
+                        <td>{{$a->brand.'/'.$a->model}}</td>
+                        <td>{{$y->sold_date}}</td>
+                        <td class="text-end">{{$a->sold_price}} ₺</td>
+                      </tr>
+                      
+                      @endforeach
+                      <tr class="fw-bold text-end">
+                        <td colspan="3" class="">Toplam:</td>
+                        <td class="" style="width:10%">{{$allprice}} ₺</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
     </div>
 
     <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-line-tab">
