@@ -5,7 +5,7 @@
 @section('content')
 <div class="d-flex justify-content-between">
     <h4 class="page-title">Sistem Ayarları </h4>
-    
+    <p class="text-muted">Son Güncelleme: {{$system->updated_at}}</p>
 <nav class="page-breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Ayarlar</a></li>
