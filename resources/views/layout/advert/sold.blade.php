@@ -4,12 +4,13 @@
     
 @section('content')
 <div class="d-flex justify-content-between">
-    <h4 class="page-title">Tüm İlanlar </h4>
+    <h4 class="page-title">Satılan İlanlar </h4>
     
 <nav class="page-breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/advert">İlanlar</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Tüm İlanlar</li>
+        <li class="breadcrumb-item" aria-current="page">Tüm İlanlar</li>
+        <li class="breadcrumb-item active" aria-current="page">Satılan İlanlar</li>
     </ol>
 </nav>
 </div>
