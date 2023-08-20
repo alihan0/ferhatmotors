@@ -103,7 +103,7 @@
                 <a href="/report/revenue" class="nav-link">Gelir Raporları</a>
               </li>
               <li class="nav-item">
-                <a href="/report/expens" class="nav-link">Gider Raporları</a>
+                <a href="/report/expense" class="nav-link">Gider Raporları</a>
               </li>
             </ul>
           </div>

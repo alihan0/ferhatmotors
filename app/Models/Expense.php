@@ -14,4 +14,8 @@ class Expense extends Model
     public function User(){
         return $this->belongsTo(User::class, 'user', 'id');
     }
+
+    public function Advert(){
+        return $this->hasOne(Advert::class, 'id', 'advert');
+    }
 }
