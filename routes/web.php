@@ -64,6 +64,7 @@ Route::controller(AdvertController::class)->prefix('advert')->middleware('auth')
 
 Route::controller(ReportController::class)->prefix('report')->middleware('auth')->group(function(){
     Route::get('/revenue', 'revenue');
+    Route::post('/get-user-report', 'get_user_report');
 });
 
 Route::controller(UploadController::class)->prefix('upload')->middleware('auth')->group(function(){

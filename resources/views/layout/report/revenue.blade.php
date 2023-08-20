@@ -125,7 +125,56 @@
     </div>
 
     <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-line-tab">
-        {{$all}}
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <select id="userselect" class="form-control w-25 m-auto">
+                            <option value="0">Kullanıcı Seçin...</option>
+                            @foreach ($users as $user)
+                                <option value="{{$user->id}}">{{$user->firstname.' '.$user->lastname}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="row d-none" id="userRow">
+                    <div class="col-12">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Marka / Model</th>
+                                <th scope="col">Satış Tarihi</th>
+                                <th scope="col" class="text-end">Satış Fiyatı</th>
+                              </tr>
+                            </thead>
+                            <tbody id="userBody"></tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
   </div>
+@endsection
+
+@section('script')
+    <script>
+        $("#userselect").on("change", function(){
+            var id = $(this).val();
+
+            axios.post('/report/get-user-report', {id:id}).then((res) => {
+                $("#userRow").removeClass('d-none');
+                var row = "";
+                res.data.useradvert.forEach(element => {
+                    row += '<tr>';
+                    row += '<td>'+element.id+'</td>';
+                    row += '<td>'+element.brand+' '+element.model+'</td>';
+                    row += '<td>'+element.sold_date+'</td>';
+                    row += '<td>'+element.sold_price+'</td>';
+                });
+                $("#userBody").append(row);
+            });
+        });
+    </script>
 @endsection
