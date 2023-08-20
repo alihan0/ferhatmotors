@@ -53,6 +53,7 @@ Route::controller(AdvertController::class)->prefix('advert')->middleware('auth')
     Route::get('all', 'all');
     Route::get('/detail/{id}', 'detail');
     Route::get('/sold', 'sold');
+    Route::get('/on-sale', 'on_sale');
     Route::post('/save', 'save');
     Route::post('/change-status', 'change_status');
     Route::post('/add-note', 'add_note');
