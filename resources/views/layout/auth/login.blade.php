@@ -8,7 +8,7 @@
         <div class="card">
             <div class="row">
 <div class="col-md-4 pe-md-0">
-  <div class="auth-side-wrapper">
+  <div class="auth-side-wrapper" style="background: url('{{$system->login_cover}}')">
 
   </div>
     </div>
@@ -16,6 +16,7 @@
         <div class="auth-form-wrapper px-4 py-5">
             <a href="#" class="noble-ui-logo d-block mb-2">Ferhat<span>Motors</span></a>
             <h5 class="text-muted fw-normal mb-4">Devam edebilmek için lütfen oturum aç.</h5>
+            @if ($system->site_status != 0)
             <form class="forms-sample">
             <div class="mb-3">
                 <label for="email" class="form-label">E-posta</label>
@@ -27,11 +28,18 @@
             </div>
             
             <div>
-                <button id="loginBtn" class="btn btn-primary me-2 mb-2 mb-md-0 text-white">Oturum Aç</button>
+                
+                    <button id="loginBtn" class="btn btn-primary me-2 mb-2 mb-md-0 text-white">Oturum Aç</button>
+               
                 
             </div>
             
             </form>
+            @else
+            <div class="alert alert-danger" role="alert">
+                Oturum açma sistem tarafından devre dışı bırakıldı!
+              </div>
+            @endif
         </div>
     </div>
 </div>
