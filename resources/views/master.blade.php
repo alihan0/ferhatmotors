@@ -53,9 +53,8 @@
 			@include('src.topbar')
 			<!-- partial -->
 
-			<div class="page-content">
-                @yield('content')
-            </div>
+            @yield('content')
+            
 
 			<!-- partial:partials/_footer.html -->
 			@include('src.footer')

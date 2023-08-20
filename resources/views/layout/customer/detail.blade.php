@@ -4,7 +4,7 @@
 
 @section('content')
     
-
+<div class="page-content">
 
   <div class="row profile-body">
     <!-- left wrapper start -->
@@ -83,5 +83,6 @@
     
     <!-- right wrapper end -->
   </div>
+</div>
 
 @endsection

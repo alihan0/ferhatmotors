@@ -3,6 +3,7 @@
 @section('title', 'Yeni İlan')
     
 @section('content')
+<div class="page-content">
 <div class="d-flex justify-content-between">
     <h4 class="page-title">Satıştaki İlanlar </h4>
     
@@ -152,6 +153,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection
 

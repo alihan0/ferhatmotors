@@ -3,6 +3,7 @@
 @section('title', 'Müşteriler')
     
 @section('content')
+<div class="page-content">
 <div class="d-flex justify-content-between">
     <h4 class="page-title">Müşteri Listesi </h4>
     
@@ -103,7 +104,7 @@
         </div>
     </div>
 </div>
-
+</div>
 @endsection
 
 @section('script')

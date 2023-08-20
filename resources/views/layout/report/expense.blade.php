@@ -4,6 +4,7 @@
 
 
 @section('content')
+<div class="page-content">
 <div class="d-flex justify-content-between">
     <h4 class="page-title">Gider Raporları </h4>
     
@@ -182,6 +183,7 @@
         </div>
     </div>
   </div>
+</div>
 @endsection
 
 @section('script')

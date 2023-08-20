@@ -3,6 +3,7 @@
 @section('title', 'Sistem Ayarları')
     
 @section('content')
+<div class="page-content">
 <div class="d-flex justify-content-between">
     <h4 class="page-title">Sistem Ayarları </h4>
     <p class="text-muted">Son Güncelleme: {{$system->updated_at}}</p>
@@ -80,6 +81,7 @@
                 </div>
             </div>
     </div>
+</div>
 </div>
 @endsection
 
