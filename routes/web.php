@@ -4,6 +4,7 @@ use App\Http\Controllers\AdvertController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +62,9 @@ Route::controller(AdvertController::class)->prefix('advert')->middleware('auth')
     Route::post('/add-expense', 'add_expense');
 });
 
+Route::controller(ReportController::class)->prefix('report')->middleware('auth')->group(function(){
+    Route::get('/revenue', 'revenue');
+});
 
 Route::controller(UploadController::class)->prefix('upload')->middleware('auth')->group(function(){
     Route::post('/profile', 'profile');
