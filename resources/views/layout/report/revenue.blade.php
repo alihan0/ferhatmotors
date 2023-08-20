@@ -32,7 +32,7 @@
   <div class="tab-content" id="lineTabContent">
     <div class="tab-pane fade show active" id="month" role="tabpanel" aria-labelledby="month-line-tab">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" id="monthBody">
                 <table class="table">
                     <thead>
                       <tr>
@@ -58,12 +58,13 @@
                       </tr>
                     </tbody>
                   </table>
+                  <a href="javascript:;" class="btn btn-primary float-end mt-4" id="printReportMonth"><i data-feather="printer" style="width: 18px"></i> Yazdır</a>
             </div>
         </div>
     </div>
     <div class="tab-pane fade" id="year" role="tabpanel" aria-labelledby="year-line-tab">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" id="yearBody">
                 <table class="table">
                     <thead>
                       <tr>
@@ -89,12 +90,13 @@
                       </tr>
                     </tbody>
                   </table>
+                  <a href="javascript:;" class="btn btn-primary float-end mt-4" id="printReportYear"><i data-feather="printer" style="width: 18px"></i> Yazdır</a>
             </div>
         </div>
     </div>
     <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-line-tab">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" id="allBody">
                 <table class="table">
                     <thead>
                       <tr>
@@ -120,13 +122,14 @@
                       </tr>
                     </tbody>
                   </table>
+                  <a href="javascript:;" class="btn btn-primary float-end mt-4" id="printReportAll"><i data-feather="printer" style="width: 18px"></i> Yazdır</a>
             </div>
         </div>
     </div>
 
     <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-line-tab">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" id="userpBody">
                 <div class="row">
                     <div class="col-12">
                         <select id="userselect" class="form-control w-25 m-auto">
@@ -150,6 +153,7 @@
                             </thead>
                             <tbody id="userBody"></tbody>
                           </table>
+                          <a href="javascript:;" class="btn btn-primary float-end mt-4" id="printReportUser"><i data-feather="printer" style="width: 18px"></i> Yazdır</a>
                     </div>
                 </div>
             </div>
@@ -159,6 +163,8 @@
 @endsection
 
 @section('script')
+    <script src="/static/assets/js/jQuery.print.min.js"></script>
+
     <script>
         $("#userselect").on("change", function(){
             var id = $(this).val();
@@ -179,6 +185,45 @@
                     row += '<td class="" style="width:10%">'+res.data.userprice+' ₺</td>';
                     row += '</tr>';
                 $("#userBody").append(row);
+            });
+        });
+
+        $("#printReportMonth").on("click", function(){
+            var originalPaddingTop = $("#monthBody").css("padding-top");
+            $("#monthBody").css("padding-top", "50px");
+            $("#monthBody").print({
+                    deferred: $.Deferred().done(function() {
+                    $("#monthBody").css("padding-top", originalPaddingTop);
+                })
+            });
+        });
+
+        $("#printReportYear").on("click", function(){
+            var originalPaddingTop = $("#yearBody").css("padding-top");
+            $("#yearBody").css("padding-top", "50px");
+            $("#yearBody").print({
+                    deferred: $.Deferred().done(function() {
+                    $("#yearBody").css("padding-top", originalPaddingTop);
+                })
+            });
+        });
+
+        $("#printReportAll").on("click", function(){
+            var originalPaddingTop = $("#allBody").css("padding-top");
+            $("#allBody").css("padding-top", "50px");
+            $("#allBody").print({
+                    deferred: $.Deferred().done(function() {
+                    $("#allBody").css("padding-top", originalPaddingTop);
+                })
+            });
+        });
+        $("#printReportUser").on("click", function(){
+            var originalPaddingTop = $("#userpBody").css("padding-top");
+            $("#userpBody").css("padding-top", "50px");
+            $("#userpBody").print({
+                    deferred: $.Deferred().done(function() {
+                    $("#userpBody").css("padding-top", originalPaddingTop);
+                })
             });
         });
     </script>
