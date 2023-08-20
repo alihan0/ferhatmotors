@@ -150,7 +150,18 @@
                         </div>
                         @else
                         <a href="/advert/edit/{{$advert->id}}" target="_blank" class="btn text-white btn-primary w-100 mb-2">İlanı Düzenle</a>
-                        <a href="javascript:;" target="_blank" class="btn text-white btn-primary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addExpense">Masraf Ekle</a>
+                        
+
+                        @if ($system->add_expense == 0)
+                            <a href="javascript:;" target="_blank" class="btn text-white btn-primary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addExpense">Masraf Ekle</a>
+
+                        @else
+                            @if(Auth::user()->id == $advert->user)
+                            <a href="javascript:;" target="_blank" class="btn text-white btn-primary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addExpense">Masraf Ekle</a>
+                            @endif
+                        @endif
+
+
                         <a href="javascript:;" target="_blank" class="btn btn-info w-100 mb-2" data-bs-toggle="modal" data-bs-target="#changeStatusModal">İlan Durumunu Değiştir</a>
                         <a href="javascript:;" target="_blank" class="btn btn-warning w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addNote">İlana Not Ekle</a>
                         <a href="javascript:;" target="_blank" class="btn btn-success w-100 mb-2" data-bs-toggle="modal" data-bs-target="#sell">Satıldı Olarak İşaretle</a>
