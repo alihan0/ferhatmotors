@@ -58,7 +58,9 @@
                       </tr>
                     </tbody>
                   </table>
-                  <a href="javascript:;" class="btn btn-primary float-end mt-4" id="printReportMonth"><i data-feather="printer" style="width: 18px"></i> Yazdır</a>
+            </div>
+            <div class="card-body">
+                <a href="javascript:;" class="btn btn-primary float-end" id="printReportMonth"><i data-feather="printer" style="width: 18px"></i> Yazdır</a>
             </div>
         </div>
     </div>
@@ -90,7 +92,9 @@
                       </tr>
                     </tbody>
                   </table>
-                  <a href="javascript:;" class="btn btn-primary float-end mt-4" id="printReportYear"><i data-feather="printer" style="width: 18px"></i> Yazdır</a>
+            </div>
+            <div class="card-body">
+                <a href="javascript:;" class="btn btn-primary float-end" id="printReportYear"><i data-feather="printer" style="width: 18px"></i> Yazdır</a>
             </div>
         </div>
     </div>
@@ -122,7 +126,9 @@
                       </tr>
                     </tbody>
                   </table>
-                  <a href="javascript:;" class="btn btn-primary float-end mt-4" id="printReportAll"><i data-feather="printer" style="width: 18px"></i> Yazdır</a>
+            </div>
+            <div class="card-body">
+                <a href="javascript:;" class="btn btn-primary float-end" id="printReportAll"><i data-feather="printer" style="width: 18px"></i> Yazdır</a>
             </div>
         </div>
     </div>
@@ -153,9 +159,11 @@
                             </thead>
                             <tbody id="userBody"></tbody>
                           </table>
-                          <a href="javascript:;" class="btn btn-primary float-end mt-4" id="printReportUser"><i data-feather="printer" style="width: 18px"></i> Yazdır</a>
                     </div>
                 </div>
+            </div>
+            <div class="card-body">
+                <a href="javascript:;" class="btn btn-primary float-end" id="printReportUser"><i data-feather="printer" style="width: 18px"></i> Yazdır</a>
             </div>
         </div>
     </div>
