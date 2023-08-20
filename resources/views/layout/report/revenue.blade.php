@@ -162,7 +162,7 @@
     <script>
         $("#userselect").on("change", function(){
             var id = $(this).val();
-
+            $("#userBody").html('');
             axios.post('/report/get-user-report', {id:id}).then((res) => {
                 $("#userRow").removeClass('d-none');
                 var row = "";
@@ -171,8 +171,13 @@
                     row += '<td>'+element.id+'</td>';
                     row += '<td>'+element.brand+' '+element.model+'</td>';
                     row += '<td>'+element.sold_date+'</td>';
-                    row += '<td>'+element.sold_price+'</td>';
+                    row += '<td class="text-end">'+element.sold_price+' ₺</td>';
+                    row += '</td>';
                 });
+                row += '<tr class="fw-bold text-end">';
+                    row += '<td colspan="3" class="">Toplam:</td>';
+                    row += '<td class="" style="width:10%">'+res.data.userprice+' ₺</td>';
+                    row += '</tr>';
                 $("#userBody").append(row);
             });
         });
