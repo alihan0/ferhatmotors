@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Advert;
+use App\Models\Customer;
+use App\Models\Expense;
 use App\Models\System;
+use App\Models\User;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,9 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $system = System::first();
-
-        if ($system) {
-            view()->share('system', $system);
-        } 
+       
+        view()->share('system', $system);
     }
 }
