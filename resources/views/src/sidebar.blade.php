@@ -19,7 +19,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/car/sell" role="button">
+          <a class="nav-link" href="/advert/sold" role="button">
             <i class="link-icon" data-feather="shopping-bag"></i>
             <span class="link-title">Satılık Araçlar</span>
           </a>
