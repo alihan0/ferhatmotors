@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(MainController::class)->middleware('auth')->group(function(){
     Route::get('/', 'home');
+    Route::get('/system', 'system');
+    Route::post('/system/save', 'system_save');
 });
 
 Route::controller(AuthController::class)->prefix('auth')->group(function(){

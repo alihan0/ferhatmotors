@@ -97,9 +97,6 @@
           <div class="collapse" id="reports">
             <ul class="nav sub-menu">
               <li class="nav-item">
-                <a href="/report/balance" class="nav-link">Bilanço</a>
-              </li>
-              <li class="nav-item">
                 <a href="/report/revenue" class="nav-link">Gelir Raporları</a>
               </li>
               <li class="nav-item">
@@ -108,7 +105,14 @@
             </ul>
           </div>
         </li>
-        
+
+        <li class="nav-item nav-category">Ayar</li>
+        <li class="nav-item">
+          <a class="nav-link" href="/system">
+            <i class="link-icon" data-feather="settings"></i>
+            <span class="link-title">Sistem Ayarları</span>
+          </a>
+        </li>
         
         <li class="nav-item nav-category">Yardım</li>
         <li class="nav-item">
