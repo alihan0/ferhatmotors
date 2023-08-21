@@ -75,6 +75,7 @@ Route::controller(ReportController::class)->prefix('report')->middleware('auth')
 
 Route::controller(DocController::class)->prefix('docs')->middleware('auth')->group(function(){
     Route::get('how-to-use', 'htu');
+    Route::get('support', 'support');
 });
 
 Route::controller(UploadController::class)->prefix('upload')->middleware('auth')->group(function(){
