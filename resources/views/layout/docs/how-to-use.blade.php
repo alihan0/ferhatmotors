@@ -67,8 +67,39 @@
 
   <div class="px-4 py-5 my-5 text-center">
     <h4 class="display-7 fw-bold text-body-emphasis mb-4">İlan Yönetimi</h4>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+    <div class="col-lg-6 mx-auto text-start">
+      <p class="mb-4">
+        İlan yönetimi satılık olan araçlarınızı yönetebileceğiniz alandır. Burada öncelikle yeni bir ilan ekleyerek başlayın. Yeni bir ilan eklemek için <code>/advert/new</code> sayfasını ziyaret edin. Bu sayfadaki doldurulmak zorunda olan alanlar yıldız (*) ile işaretlenmiştir bu alanları doldurmak zorundasınız. Ardından fotoğraflarınızı yükleyin ve kaydet butonuna basın. <code>İlan başarılı bir şekilde oluşturuldu</code> uyarısını aldıktan sonra sistem sizi otomatik olarak ilan detay sayfasına yönlendirecek.
+      </p>
+      <p class="mb-4">
+        İlan oluştururken fiyat kısmına dikkat etmeniz gerekiyor. Fiyatlar <code>Decimal 9,2</code> formatında oluşturulmuştur. Herhangi bir binlik ayırıcı girmenize izin verilmemektedir. Ondalık ayırıcı olarak nokta (.) kullanılmaktadır. Herhangi bir fiyat alanına maksimum <code>999999999.99</code> değeri girebilirsiniz. Eğer binlik ayırıcı kullanırsanız sistem ilanınızı kaydetmeyecek, kaydetse bile fiyat bilgisini tutmayacaktır. Örnek hatalı girişler:
+      </p>
+      <ul>
+        <li>100.000</li>
+        <li>1.000.000</li>
+        <li>1,000.000</li>
+        <li>100,000</li>
+      </ul>
+      <p class="mb-4">
+        Fotoğraf yükleme alanı <code>multiple file</code> türündendir. Dosya seç butonuna bastıktan sonra <code>CMD (MacOS) ya da CTRL (WIN)</code> tuşuna basılı tutarak birden fazla fotoğraf seçebilirsiniz. Seçtiğiniz fotoğraflar sadece <code>PNG</code> yada <code>JPG</code> formatında olmalıdır. Farklı formatlarda fotoğraf yüklemenize sistem izin vermeyecektir.
+      </p>
+      <p class="mb-4">
+        Eklediğiniz ilanları görüntülemek için <code>/advert/all</code> sayfasını ziyaret edin. Bu sayfa <code>DataTable()</code> eklentisi kullanarak otomatik olarak sayfalama yapar. Burada istediğiniz ilanın detaylarına gidebilir ya da hızlı aksiyon menülerini kullanabilirsiniz.
+      </p>
+
+      <p class="mb-4">
+        İlan detaylarını görüntülediğinizde ilan için detay bilgisini görüntüleyebilirsiniz. Bu sayfada ilana şu aksiyonları yapabilirsiniz:
+      </p>
+      <ul>
+        <li>Not Ekleme</li>
+        <li>Masraf Ekleme</li>
+        <li>İlanı Düzenleme</li>
+        <li>Satıldı Olarak İşaretleme</li>
+        <li>İlanı Silme</li>
+      </ul>
+      <p class="mb4">
+        <b>Not:</b> <code>Satıldı</code> olarak işaretlenen ilanlar üzerinde aksiyon menülerini kullanamazsınız.
+      </p>
     </div>
   </div>
 
@@ -76,19 +107,50 @@
 
   <div class="px-4 py-5 my-5 text-center">
     <h4 class="display-7 fw-bold text-body-emphasis mb-4">Rapor Yönetimi</h4>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+    <div class="col-lg-6 mx-auto text-start">
+      <p class="mb-4">
+        Sistem üzerinde tüm gelir ve giderlerinizi raporlar aracılığı ile görüntüleyebilirsiniz. Gelirlerinizi görüntülemek için <code>/report/revenue</code> sayfasını ziyaret edin. Bu sayfa 4 sekmeye ayrılmıştır:
+      </p>
+      <ul>
+        <li>
+            <b>Aylık Raporlar:</b> İçinde bulunduğumuz ay boyuna yapılan tüm satışların gelirlerini hesaplar.
+        </li>
+        <li>
+            <b>Yıllık Raporlar:</b> İçinde bulunduğumuz yıl boyunca yapılan tüm satışların gelirlerini hesaplar.
+        </li>
+        <li>
+            <b>Tüm Zamanlar:</b> Tüm satışların gelirlerini hesaplar.
+        </li>
+        <li>
+            <b>Kullanıcıya Göre Filtreleme:</b> Seçilen kullanıcının tüm zamanlardaki kazançlarını hesaplar.
+        </li>
+      </ul>
+      <p class="mb-4">
+        Giderlerinizi görüntülemek için <code>/report/expense</code> sayfasını ziyaret edin. Bu sayfa 4 sekmeye ayrılmıştır:
+      </p>
+
+      <ul>
+        <li>
+            <b>Aylık Raporlar:</b> İçinde bulunduğumuz ay boyuna yapılan tüm harcamaları hesaplar.
+        </li>
+        <li>
+            <b>Yıllık Raporlar:</b> İçinde bulunduğumuz yıl boyunca yapılan tüm harcamaları hesaplar.
+        </li>
+        <li>
+            <b>Tüm Zamanlar:</b> Tüm harcamaları hesaplar.
+        </li>
+        <li>
+            <b>Kullanıcıya Göre Filtreleme:</b> Seçilen kullanıcının tüm zamanlardaki haramalarını hesaplar.
+        </li>
+      </ul>
+
+      <p class="mb-4">
+        İstediğiniz bir raporun çıktısını sağ altta bulunan <code>Yazdır</code> butonundan alabilirsiniz. Sisteminizde bağlı bir varsayılan tarayıcı varsa otomatik olarak belge yazıcıya gönderilir. Eğer bağlı bir yazıcı yoksa belge <code>PDF</code> formatında kaydedilecektir. Eğer bir yazıcı bağlı fakat yine de görüntüleyemiyorsanız  yazdır butonuna bastıktan sonra açılan pençereden <code>Hedef</code> seçim kutusunu tıklayın ve açılan listeden yazıcınızı seçin. Bağlı olan yazıcınızı burada görüntüleyemiyorsanız yazıcı yapılandırmanızda bir sorun var demektir.
+      </p>
     </div>
   </div>
 
-  <div class="b-example-divider"></div>
 
-  <div class="px-4 py-5 my-5 text-center">
-    <h4 class="display-7 fw-bold text-body-emphasis mb-4">Sistem Ayarları</h4>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
-    </div>
-  </div>
 
 
 @endsection
