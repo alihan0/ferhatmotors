@@ -150,23 +150,23 @@
                             Bu ilan <b>{{$advert->sold_date}}</b> tarihinde <u>Satıldı</u> olarak işaretlendiği için değişiklik yapamazsınız.
                         </div>
                         @else
-                        <a href="/advert/edit/{{$advert->id}}" target="_blank" class="btn text-white btn-primary w-100 mb-2">İlanı Düzenle</a>
+                        <a href="/advert/edit/{{$advert->id}}" class="btn text-white btn-primary w-100 mb-2">İlanı Düzenle</a>
                         
 
                         @if ($system->add_expense == 0)
-                            <a href="javascript:;" target="_blank" class="btn text-white btn-primary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addExpense">Masraf Ekle</a>
+                            <a href="javascript:;" class="btn text-white btn-primary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addExpense">Masraf Ekle</a>
 
                         @else
                             @if(Auth::user()->id == $advert->user)
-                            <a href="javascript:;" target="_blank" class="btn text-white btn-primary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addExpense">Masraf Ekle</a>
+                            <a href="javascript:;" class="btn text-white btn-primary w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addExpense">Masraf Ekle</a>
                             @endif
                         @endif
 
 
-                        <a href="javascript:;" target="_blank" class="btn btn-info w-100 mb-2" data-bs-toggle="modal" data-bs-target="#changeStatusModal">İlan Durumunu Değiştir</a>
-                        <a href="javascript:;" target="_blank" class="btn btn-warning w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addNote">İlana Not Ekle</a>
-                        <a href="javascript:;" target="_blank" class="btn btn-success w-100 mb-2" data-bs-toggle="modal" data-bs-target="#sell">Satıldı Olarak İşaretle</a>
-                        <a href="javascript:;" target="_blank" class="btn btn-danger w-100 mb-2">İlanı Sil</a>
+                        <a href="javascript:;" class="btn btn-info w-100 mb-2" data-bs-toggle="modal" data-bs-target="#changeStatusModal">İlan Durumunu Değiştir</a>
+                        <a href="javascript:;" class="btn btn-warning w-100 mb-2" data-bs-toggle="modal" data-bs-target="#addNote">İlana Not Ekle</a>
+                        <a href="javascript:;" class="btn btn-success w-100 mb-2" data-bs-toggle="modal" data-bs-target="#sell">Satıldı Olarak İşaretle</a>
+                        <a href="javascript:;" class="btn btn-danger w-100 mb-2" id="delete" data-id="{{$advert->id}}">İlanı Sil</a>
                         @endif
                     </div>
                 </div>
@@ -397,6 +397,34 @@
                 }, 500);
             }
         }); 
+    });
+    $("#delete").on("click", function(){
+        var id = $(this).attr('data-id');
+        Swal.fire({
+        title: 'Silmek istediğine emin misin?',
+        text: "Bu ilanı sildiğinizde onunla birlikte ilişkili olan diğer tüm veriler sistemden kalıcı olarak silinecek. Bu işlem geri alınamaz!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Evet, Sil!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+
+            axios.post('/advert/delete', {id:id}).then((res) => {
+                Swal.fire(
+                    res.data.title,
+                    res.data.message,
+                    res.data.type
+                )
+                if(res.data.status){
+                    setInterval(() => {
+                        window.location.assign('/advert/all');
+                    }, 500);
+                }
+            })
+        }
+        })
     });
     </script>
 @endsection

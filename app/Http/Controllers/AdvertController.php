@@ -194,4 +194,26 @@ class AdvertController extends Controller
 
         return $this->response;
     } 
+
+    public function delete(Request $request){
+        if($request->id){
+            $find = Advert::find($request->id);
+            if($find){
+                // AdvertNote modelindeki ilgili satırları sil
+                AdvertNote::where('advert', $find->id)->delete();
+                
+                // AdvertPhoto modelindeki ilgili satırları sil
+                AdvertPhoto::where('advert', $find->id)->delete();
+                
+                if($find->delete()){
+                    return response(["title" => "Başarılı!", "message" => "İlan başarıyla silindi!", "type" => "success", "status" => true]);
+                }else{
+                    return response(["title" => "Hata!", "message" => "İlan silinirken bir hata oluştu!", "type" => "error"]);
+                }
+            }else{  
+                return response(["title" => "Hata!", "message" => "İlan bulunamadı!", "type" => "error"]);
+            }
+        }
+    }
+    
 }

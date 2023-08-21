@@ -64,6 +64,7 @@ Route::controller(AdvertController::class)->prefix('advert')->middleware('auth')
     Route::post('/add-note', 'add_note');
     Route::post('/sell', 'sell');
     Route::post('/add-expense', 'add_expense');
+    Route::post('/delete', 'delete');
 });
 
 Route::controller(ReportController::class)->prefix('report')->middleware('auth')->group(function(){
