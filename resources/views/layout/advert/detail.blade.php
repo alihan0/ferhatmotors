@@ -207,15 +207,25 @@
                             @foreach ($advert->Expense as $item)
                                 <li class="list-group-item text-center d-flex align-items-center justify-content-between align-center">
                                     <p class="px-4 w-50 text-start " >{{$item->type}}</p>
-                                    <p class="px-4" >- {{$item->amount}} TL</p>
+                                    
 
                                     <span class="text-muted text-center">
                                         {{$item->User->firstname.' '.$item->User->lastname}}
                                         <br>
                                         {{date_format($item->created_at,"d M, Y")}}
                                     </span>
+                                    <p class="px-4" >- {{$item->amount}} TL</p>
                                 </li>
                             @endforeach
+                            <li class="list-group-item text-center bg-light d-flex align-items-center justify-content-between align-center">
+                                    <p class="px-4 w-50 text-start fw-bold" >Toplam: </p>
+                                    
+
+                                    <span class="text-muted text-center">
+                                       
+                                    </span>
+                                    <p class="px-4 fw-bold" >{{$totalExpense}} TL</p>
+                                </li>
                           </ul>
                         @else
                         <div class="alert alert-primary" role="alert">

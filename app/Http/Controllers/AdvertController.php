@@ -159,13 +159,13 @@ class AdvertController extends Controller
 
     public function detail($id){
         $advert = Advert::find($id);
-
+        $totalExpense = Expense::where('advert', $id)->sum('amount');
         if($advert->profit < 100){
             $profit = '%'.$advert->profit;
         }else{
             $profit = $advert->profit.'TL';
         }
-        return view('layout.advert.detail', ['advert' => $advert, 'profit' => $profit]);
+        return view('layout.advert.detail', ['advert' => $advert, 'profit' => $profit, 'totalExpense' => $totalExpense]);
     }
 
     public function add_expense(Request $request){
