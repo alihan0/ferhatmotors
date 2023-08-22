@@ -224,7 +224,7 @@
                                     <span class="text-muted text-center">
                                        
                                     </span>
-                                    <p class="px-4 fw-bold" >{{$totalExpense}} TL</p>
+                                    <p class="px-4 fw-bold" >{{ currency_format(10000.00) }} TL</p>
                                 </li>
                           </ul>
                         @else
