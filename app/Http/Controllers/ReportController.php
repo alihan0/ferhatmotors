@@ -41,7 +41,7 @@ class ReportController extends Controller
                 $adv = Advert::where('user',$user->id)->where('status', 7)->get();
                 $userprice = $adv->sum('sold_price');
 
-                return response(['useradvert' => $adv, 'userprice' => $userprice]);
+                return response(['useradvert' => $adv, 'userprice' => currency_format($userprice)]);
             }
         }
 
@@ -53,7 +53,7 @@ class ReportController extends Controller
                 $expense = Expense::where('user', $user->id)->with('Advert')->get();
                 $userprice = $expense->sum('amount');
 
-                return response(['expense' => $expense, 'userprice' => $userprice]);
+                return response(['expense' => $expense, 'userprice' => currency_format($userprice)]);
             }
         }
     }
