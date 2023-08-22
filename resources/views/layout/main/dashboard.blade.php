@@ -97,7 +97,7 @@
             </div>
             <div class="row">
               <div class="col-12">
-                <h3 class="mb-2">{{$count["expense"]}} ₺</h3>
+                <h3 class="mb-2">{{currency_format($count["expense"])}} ₺</h3>
               </div>
             </div>
           </div>
@@ -111,7 +111,7 @@
             </div>
             <div class="row">
               <div class="col-12">
-                <h3 class="mb-2">{{$count["gain"]}} ₺</h3>
+                <h3 class="mb-2">{{currency_format($count["gain"])}} ₺</h3>
               </div>
             </div>
           </div>
