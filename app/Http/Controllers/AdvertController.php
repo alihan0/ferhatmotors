@@ -242,7 +242,7 @@ class AdvertController extends Controller
             $adv->arabam_url = trim(ucfirst($request->arabam));
             $adv->status = $request->status;
             $adv->buy_price = $request->buy_price;
-            $adv->sell_price = $request->sellprice;
+            $adv->sell_price = $request->sell_price;
             $adv->buy_date = trim(ucfirst($request->buy_date));
             $adv->damage = $request->damage;
 
