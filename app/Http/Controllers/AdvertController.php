@@ -217,7 +217,7 @@ class AdvertController extends Controller
     }
 
     public function edit($id){
-        return view('layout.advert.edit', ['advert' => Advert::find($id), 'users' => User::all()]);
+        return view('layout.advert.edit', ['advert' => Advert::find($id), 'users' => User::all(), 'photos' => AdvertPhoto::where('advert', $id)->get()]);
     }
     
 
@@ -267,5 +267,21 @@ class AdvertController extends Controller
         }
 
         return $this->response;
+    }
+
+    public function delete_photo(Request $request){
+        if($request->id){
+            $find = AdvertPhoto::find($request->id);
+            if($find){
+
+                if($find->delete()){
+                    return response(["title" => "Başarılı!", "message" => "Fotoğraf başarıyla silindi!", "type" => "success", "status" => true]);
+                }else{
+                    return response(["title" => "Hata!", "message" => "Fotoğraf silinirken bir hata oluştu!", "type" => "error"]);
+                }
+            }else{  
+                return response(["title" => "Hata!", "message" => "Fotoğraf bulunamadı!", "type" => "error"]);
+            }
+        }
     }
 }
