@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('system', function (Blueprint $table) {
             $table->id();
+            $table->string('site_name');
+            $table->string('site_url');
+            $table->string('login_cover');
+            $table->integer('site_status');
+            $table->integer('add_expense');
+            $table->date('delivery_time');
             $table->timestamps();
         });
     }
