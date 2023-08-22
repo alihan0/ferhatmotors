@@ -24,10 +24,6 @@ class UserSeeder extends Seeder
         ]);
 
 
-        $this->command->info("Varsayılan Kullanıcı: Default User");
-        $this->command->info("Varsayılan Kullanıcı E-posta: admin@metatige.com");
-        $this->command->info("Varsayılan Kullanıcı Şifre: 1234567");
-        $this->command->info("---");
-        $this->command->info("!!! Giriş yaptıktan sonra yeni bir kullanıcı oluşturun ve oturumunuzu yeniledikten sonra bu kullanıcıyı silin !!!");
+        
     }
 }
