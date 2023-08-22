@@ -74,6 +74,7 @@ Route::controller(ReportController::class)->prefix('report')->middleware('auth')
     Route::get('/expense', 'expense');
     Route::post('/get-user-report', 'get_user_report');
     Route::post('/get-user-expense-report', 'get_user_expense_report');
+    Route::post('/get-car-expense-report', 'get_car_expense_report');
 });
 
 Route::controller(DocController::class)->prefix('docs')->middleware('auth')->group(function(){

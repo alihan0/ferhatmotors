@@ -28,7 +28,10 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" id="user-line-tab" data-bs-toggle="tab" href="#user" role="tab" aria-controls="user" aria-selected="false">Kullanıcıya Göre</a>
-      </li>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="car-line-tab" data-bs-toggle="tab" href="#car" role="tab" aria-controls="car" aria-selected="false">Araca Göre</a>
+    </li>
   </ul>
   <div class="tab-content" id="lineTabContent">
     <div class="tab-pane fade show active" id="month" role="tabpanel" aria-labelledby="month-line-tab">
@@ -182,6 +185,43 @@
             </div>
         </div>
     </div>
+
+    <div class="tab-pane fade" id="car" role="tabpanel" aria-labelledby="car-line-tab">
+        <div class="card">
+            <div class="card-body" id="carpBody">
+                <div class="row">
+                    <div class="col-12">
+                        <select id="carselect" class="form-control w-25 m-auto">
+                            <option value="0">Kullanıcı Seçin...</option>
+                            @foreach ($adverts as $advert)
+                            <option value="{{$advert->id}}">{{$advert->brand.'/'.$advert->model.' - '.$advert->year}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="row d-none" id="carRow">
+                    <div class="col-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">İlan ID</th>
+                                    <th scope="col">Harcama</th>
+                                    <th scope="col">Marka / Model</th>
+                                    <th scope="col">Tarih</th>
+                                    <th scope="col" class="text-end">Tutar</th>
+                                  </tr>
+                            </thead>
+                            <tbody id="carBody"></tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <a href="javascript:;" class="btn btn-primary float-end" id="printReportCar"><i data-feather="printer" style="width: 18px"></i> Yazdır</a>
+            </div>
+        </div>
+    </div>
   </div>
 </div>
 @endsection
@@ -211,6 +251,30 @@
                     row += '<td class="" style="width:10%">'+res.data.userprice+' ₺</td>';
                     row += '</tr>';
                 $("#userBody").append(row);
+            });
+        });
+
+        $("#carselect").on("change", function(){
+            var id = $(this).val();
+            $("#carBody").html('');
+            axios.post('/report/get-car-expense-report', {id:id}).then((res) => {
+                $("#carRow").removeClass('d-none');
+                var row = "";
+                res.data.expense.forEach(element => {
+                    row += '<tr>';
+                    row += '<td>'+element.id+'</td>';
+                    row += '<td>'+element.advert.id+'</td>';
+                    row += '<td>'+element.type+'</td>';
+                    row += '<td>'+element.advert.brand+' '+element.advert.model+'</td>';
+                    row += '<td>'+element.amount+'</td>';
+                    row += '<td class="text-end">'+element.amount+' ₺</td>';
+                    row += '</td>';
+                });
+                row += '<tr class="fw-bold text-end">';
+                    row += '<td colspan="5" class="">Toplam:</td>';
+                    row += '<td class="" style="width:10%">'+res.data.carprice+' ₺</td>';
+                    row += '</tr>';
+                $("#carBody").append(row);
             });
         });
 
@@ -249,6 +313,15 @@
             $("#userpBody").print({
                     deferred: $.Deferred().done(function() {
                     $("#userpBody").css("padding-top", originalPaddingTop);
+                })
+            });
+        });
+        $("#printReportCar").on("click", function(){
+            var originalPaddingTop = $("#carpBody").css("padding-top");
+            $("#carpBody").css("padding-top", "50px");
+            $("#carpBody").print({
+                    deferred: $.Deferred().done(function() {
+                    $("#carpBody").css("padding-top", originalPaddingTop);
                 })
             });
         });
