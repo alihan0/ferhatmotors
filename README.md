@@ -54,7 +54,34 @@ Klasörün içerisinde `.env.example` içerisindeki dosyası bulun ve adını de
 - DB_USERNAME
 - DB_PASSWORD
 
+### Adım 5 - Bağımlılıkları Yükleyin
+Projenin çalışması için gerekli olan kütüphaneleri kurmak için 
 
-## License
+```
+composer update
+```
+komutunu çalıştırın ve composerın sizin için paketleri yüklemesini bekleyin. Bu işlem biraz zaman alabilir.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Adım 6 - Laraveli Generate Edin
+Şuan projeyi çalıştırmaya çalışırsanız muhtemlen key code hatası alırsınız. Bunun önüne geçmek için sisteme bunun yeni bir makinedeki bir proje olduğunu tanıtmamız gerekiyor. Aşağıdaki komutu çalıştırın:
+```
+php artisan key:generate
+```
+
+### Adım 7 - Veritabanını Yapılandırın
+Veritabanınızın tablolarını ve varsayılan satırlarını oluşturmak için çalıştırın:
+```
+php artisan migrate --seed
+```
+
+Bu komutu çalıştırdıktan sonra sistem veritabanınıza tablolarınızı ekleyecek. Terminal ekranınızda sisteme giriş yapmak için gereken bilgileri göreceksiniz.
+
+### Adım 8 - Projeyi Ayağa Kaldırın
+```
+php artisan serve
+```
+komutunu kullanarak projeyi ayağa kaldırın. Sistemi kullanmaya başlamak için `http://localhost:8000` adresini ziyaret edebilirsiniz. 
+
+## Lisans
+
+Bu yazılım kişiye özel olarak üretilmiştir ve 1 kopya ile sınırlıdır. İzinsiz çoğaltılması ya da dağıtılması yasaktır.
