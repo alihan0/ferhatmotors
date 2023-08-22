@@ -1,6 +1,6 @@
 
 
-## Proje Hakkında
+# Proje Hakkında
 
 İşbu özel web yazılımı Ferhat Motors - Metatige Dijital için özel olarak hazırlanmıştır. Araç satış ilanlarını ve müşterilerini takip eden bir BASIC LEVEL CRM SYSTEM'dir. Bu sistemde kullanılan teknolojiler aşağıdaki gibidir:
 
@@ -19,7 +19,7 @@
 
 Bu teknolojilerde hakim olmadan projeyi geliştirmeyi denemeyin.
 
-## Nasıl Kurulur?
+# Nasıl Kurulur?
 
 Projeyi kurmak çok basittir fakat öncelikle bilgisayarınızda ```Composer``` ve ```Git``` teknolojilerinin kurulu olduğundan emin olun. Bilgisayarınızda hali hazırda kurulu olması gereken yazılımlar aşağıdaki gibidir:
 
@@ -30,13 +30,13 @@ Projeyi kurmak çok basittir fakat öncelikle bilgisayarınızda ```Composer``` 
 - Mysql Server (Xammp ile kolay kurulum)
 - Xampp (Xammp ile kolay kurulum)
 
-# Adım 1 - Sunucuları Başlatın
+### Adım 1 - Sunucuları Başlatın
 İndirdiğiniz apache serveri ya da xampp control panel'i çalıştırın. Burada sırasıyla `Apache` ve `Mysql` sunucularına start vererek localhostu başlatın. 
 
-# Adım 2 - Veritabanını Oluşturun
+### Adım 2 - Veritabanını Oluşturun
 Taryıcınızı açın ve `http://localhost/phpmyadmin` adresine gidin. Sol menüden yeni bir veritabanı ekleyin. Veritabanı kodlaması `utf8mb4_general_ci` olmalıdır, aksi halde türkçe karakter hatası alabilirsiniz.
 
-# Adım 3 - Projeyi Klonlayın
+### Adım 3 - Projeyi Klonlayın
 Terminalinizi açın ve istediğiniz bir dizine gittikten sonra şu komutu çalıştırın:
 ```
 git clone https://github.com/alihan0/ferhatmotors
@@ -46,7 +46,7 @@ ve ardından klasöre gidin:
 cd ferhatmotors
 ```
 
-# Adım 4 - ENV Dosyasını Yapılandırın
+### Adım 4 - ENV Dosyasını Yapılandırın
 Klasörün içerisinde `.env.example` içerisindeki dosyası bulun ve adını değiştirerek `.env` yapıp kaydedin. Ardından herhangi bir editör ile dosyası açın. Şu alanları kendinize göre düzenleyin:
 - APP_NAME
 - APP_URL
