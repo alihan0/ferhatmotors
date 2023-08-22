@@ -55,8 +55,9 @@ Route::controller(CustomerController::class)->prefix('/customer')->middleware('a
 
 Route::controller(AdvertController::class)->prefix('advert')->middleware('auth')->group(function(){
     Route::get('/new', 'new');
-    Route::get('all', 'all');
+    Route::get('/all', 'all');
     Route::get('/detail/{id}', 'detail');
+    Route::get('/edit/{id}', 'edit');
     Route::get('/sold', 'sold');
     Route::get('/on-sale', 'on_sale');
     Route::post('/save', 'save');

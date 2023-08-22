@@ -215,5 +215,9 @@ class AdvertController extends Controller
             }
         }
     }
+
+    public function edit($id){
+        return view('layout.advert.edit', ['advert' => Advert::find($id), 'users' => User::all()]);
+    }
     
 }
