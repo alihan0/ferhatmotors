@@ -121,9 +121,9 @@
                 <div class="card">
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item justify-content-between d-flex"><b>Alış Fiyatı: </b> {{$advert->buy_price}}</li>
-                            <li class="list-group-item justify-content-between d-flex"><b>Satış Fiyatı: </b> {{$advert->sell_price ?? "-"}}</li>
-                            <li class="list-group-item justify-content-between d-flex"><b>Satış Tutarı: </b> {{$advert->sold_price ?? "-"}}</li>
+                            <li class="list-group-item justify-content-between d-flex"><b>Alış Fiyatı: </b> {{currency_format($advert->buy_price)}}</li>
+                            <li class="list-group-item justify-content-between d-flex"><b>Satış Fiyatı: </b> {{currency_format($advert->sell_price) ?? "-"}}</li>
+                            <li class="list-group-item justify-content-between d-flex"><b>Satış Tutarı: </b> {{currency_format($advert->sold_price) ?? "-"}}</li>
                           </ul>
                     </div>
                 </div>
@@ -214,7 +214,7 @@
                                         <br>
                                         {{date_format($item->created_at,"d M, Y")}}
                                     </span>
-                                    <p class="px-4" >- {{$item->amount}} TL</p>
+                                    <p class="px-4" >- {{currency_format($item->amount)}} TL</p>
                                 </li>
                             @endforeach
                             <li class="list-group-item text-center bg-light d-flex align-items-center justify-content-between align-center">
@@ -224,7 +224,7 @@
                                     <span class="text-muted text-center">
                                        
                                     </span>
-                                    <p class="px-4 fw-bold" >{{ currency_format(10000.00) }} TL</p>
+                                    <p class="px-4 fw-bold" >{{ currency_format($totalExpense) }} TL</p>
                                 </li>
                           </ul>
                         @else
