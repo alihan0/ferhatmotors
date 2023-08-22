@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('advert');
             $table->integer('user');
             $table->string('type');
-            $table->decimal('amouny',9,2);
+            $table->decimal('amount',9,2);
             $table->timestamps();
         });
     }
