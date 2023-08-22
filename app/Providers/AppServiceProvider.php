@@ -27,8 +27,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $system = System::first();
-       
-        view()->share('system', $system);
+        if (app()->environment('local') && !\App::runningInConsole()) {
+            try {
+                // Veritabanını kontrol eden işlem
+                \DB::connection()->getPdo();
+                $system = System::first();
+                view()->share('system', $system);
+            } catch (\Exception $e) {
+                // Veritabanı hala oluşturulmamış
+            }
+        }
     }
 }
