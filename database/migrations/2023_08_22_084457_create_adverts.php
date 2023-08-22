@@ -30,7 +30,6 @@ return new class extends Migration
             $table->string('ownername');
             $table->string('sahibinden_url');
             $table->string('arabam_url');
-            $table->string('ownername');
             $table->decimal('damage', 9,2);
             $table->decimal('buy_price', 9,2);
             $table->decimal('sell_price', 9,2);
