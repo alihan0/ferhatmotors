@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Advert;
+use App\Models\AdvertPhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -57,5 +59,16 @@ class UploadController extends Controller
         'paths' => $uploadedPaths  // Dosya yollarını dizi olarak döndür
     ]);
 }
+
+    public function get_photos(Request $request){
+
+        if($request->id){
+            $find = Advert::find($request->id);
+            if($find){
+                $photos = AdvertPhoto::where('advert',$request->id)->get();
+                return response()->json($photos);
+            }
+        }
+    }
 
 }

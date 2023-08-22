@@ -220,4 +220,52 @@ class AdvertController extends Controller
         return view('layout.advert.edit', ['advert' => Advert::find($id), 'users' => User::all()]);
     }
     
+
+    public function update(Request $request){
+
+        if(empty($request->brand) || empty($request->model) || empty($request->km) || empty($request->year) ||  empty($request->buy_price)){
+            $this->response["message"] = "Yızldız (*) ile işaretlenen alanlar zorunludur.";
+        }else{
+            $adv = Advert::find($request->id);
+        
+            $adv->brand = trim(ucfirst($request->brand));
+            $adv->model = trim(ucfirst($request->model));
+            $adv->package = trim(ucfirst($request->package));
+            $adv->motor = trim(ucfirst($request->motor));
+            $adv->km = trim(ucfirst($request->km));
+            $adv->year = trim(ucfirst($request->year));
+            $adv->gear = trim(ucfirst($request->gear));
+            $adv->fuel = trim(ucfirst($request->fuel));
+            $adv->color = trim(ucfirst($request->color));
+            $adv->casetype = trim(ucfirst($request->case));
+            $adv->sahibinden_url = trim(ucfirst($request->sahibinden));
+            $adv->arabam_url = trim(ucfirst($request->arabam));
+            $adv->status = $request->status;
+            $adv->buy_price = $request->buy_price;
+            $adv->sell_price = $request->sellprice;
+            $adv->buy_date = trim(ucfirst($request->buy_date));
+            $adv->damage = $request->damage;
+
+            if($adv->save()){
+                if(!empty($request->photodata)){
+                    $photodata = explode(',', $request->photodata);
+                    for ($i=0; $i < count($photodata); $i++) { 
+                        $pic = new AdvertPhoto;
+                        $pic->advert = $adv->id;
+                        $pic->file = $photodata[$i];
+                        $pic->save();
+                    }
+                }
+                $this->response["type"] = "success";
+                $this->response["message"] = "İlan güncellendi";
+                $this->response["id"] = $adv->id;
+                $this->response["status"] = true;
+            }else{
+                $this->response["type"] = "error";
+                $this->response["message"] = "SYSTEM_ERROR";
+            }
+        }
+
+        return $this->response;
+    }
 }

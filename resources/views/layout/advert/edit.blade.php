@@ -19,7 +19,7 @@
         <div class="card">
             <div class="card-body">
                 <form class="row g-3" id="advertForm">
-                  <input type="text" name="id" id="id" value="{{$advert->id}}">
+                  <input type="hidden" name="id" id="id" value="{{$advert->id}}">
                     <div class="col-md-6">
                       <label for="brand" class="form-label">Marka *</label>
                       <input type="text" class="form-control" id="brand" name="brand" value="{{$advert->brand}}">
@@ -127,7 +127,7 @@
                       </div>
 
                     <div class="col-12">
-                      <a href="javascript:;" class="btn btn-primary" id="advertSaveBtn">Kaydet</a>
+                      <a href="javascript:;" class="btn btn-primary" id="advertSaveBtn">Güncelle</a>
                     </div>
             </div>
         </div>
@@ -142,23 +142,12 @@
                         
                     </h2>
                     <input type="file" name="photos[]" id="photo" multiple>
-                    <input type="text" name="photodata" id="photodata" value="{{$advert->photo}}">
+                    <input type="hidden" name="photodata" id="photodata" value="{{$advert->photo}}">
                   </div>
             </div>
         </div>
         </div>
-        <div class="row mb-3 d-none" id="profitRow">
-          <div class="card">
-            <div class="card-body">
-                <div class="col-12 ">
-                    <h2 class="card-title d-flex justify-content-between">Komisyon Oranı</h2>
-                    <input type="text" name="profit" id="profit" class="form-control" placeholder="10, 10.000..." value="0">
-                    <p class="text-muted mt-2">Yüzdelik kar oranı ya da doğrudan rakam girin.</p>
-                  </div>
-            </div>
-        </div>
-        </div>
-        <div id="photoLine" class="row d-none">
+        <div id="photoLine" class="row">
           <div class="card">
             <div class="card-body" id="photoPreview">
             </div>
@@ -173,22 +162,34 @@
 @section('script')
     <script>
 
-      $(document).ready(function(){
-        id = $("#id").val();
-        axios.get('/upload/get-photos/'+id).then((res) => {
-          console.log(res.data);
-        })
+$(document).ready(function(){
+    id = $("#id").val();
+    axios.post('/upload/get-photos/', {id:id}).then((res) => {
+       
+        var photoArray = res.data.map(item => item.file);
+        
+        // Diziyi virgül ile ayırıp tek bir string haline getir
+        var photoDataString = photoArray.join(',');
 
-      })
+        // Elde edilen string'i #photodata inputuna yazdır
+        $("#photodata").val(photoDataString);
+
+        // Dizideki resim yollarını önizleme olarak eklemek için döngü
+        for (let i = 0; i < res.data.length; i++) {
+            $("#photoPreview").append('<img src="/storage/'+res.data[i].file+'" class="wd-50 border-5 m-2" alt="...">');
+        }
+    });
+});
+
 
         $("#advertSaveBtn").on("click", function(){
             var formData = $("#advertForm").serialize();
 
-            axios.post('/advert/save', formData).then((res)=>{
+            axios.post('/advert/update', formData).then((res)=>{
                 toastr[res.data.type](res.data.message);
                 if(res.data.status){
                     setInterval(() => {
-                        window.location.assign('/advert/detail/'+res.data.id);
+                        window.location.reload();
                     }, 1000);
                 }
             });
@@ -225,13 +226,6 @@
       $("#owner").on("change", function(){
         if($(this).val() != 0){
           $("#ownername").val($("#owner :selected").html());
-        }
-      });
-      $("#sales_type").on("change", function(){
-        if($(this).val() == 2){
-          $("#profitRow").removeClass('d-none');
-        }else{
-          $("#profitRow").addClass('d-none');
         }
       });
     </script>

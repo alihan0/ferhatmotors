@@ -61,6 +61,7 @@ Route::controller(AdvertController::class)->prefix('advert')->middleware('auth')
     Route::get('/sold', 'sold');
     Route::get('/on-sale', 'on_sale');
     Route::post('/save', 'save');
+    Route::post('/update', 'update');
     Route::post('/change-status', 'change_status');
     Route::post('/add-note', 'add_note');
     Route::post('/sell', 'sell');
@@ -83,4 +84,5 @@ Route::controller(DocController::class)->prefix('docs')->middleware('auth')->gro
 Route::controller(UploadController::class)->prefix('upload')->middleware('auth')->group(function(){
     Route::post('/profile', 'profile');
     Route::post('/photos', 'photos');
+    Route::post('/get-photos', 'get_photos');
 });
