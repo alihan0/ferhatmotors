@@ -30,7 +30,7 @@ class ReportController extends Controller
         $yearprice = $year->sum('amount');
         $allprice = $all->sum('amount');
 
-        return view('layout.report.expense', ['month' => $month, 'year' => $year, 'all' => $all, 'monthprice' => $monthprice, 'yearprice' => $yearprice, 'allprice' => $allprice, 'users' => User::all()]);
+        return view('layout.report.expense', ['month' => $month, 'year' => $year, 'all' => $all, 'monthprice' => $monthprice, 'yearprice' => $yearprice, 'allprice' => $allprice, 'users' => User::all(), 'adverts' => Advert::all()]);
     }
 
     public function get_user_report(Request $request){
@@ -41,7 +41,7 @@ class ReportController extends Controller
                 $adv = Advert::where('user',$user->id)->where('status', 7)->get();
                 $userprice = $adv->sum('sold_price');
 
-                return response(['useradvert' => $adv, 'userprice' => $userprice]);
+                return response(['useradvert' => $adv, 'userprice' => currency_format($userprice)]);
             }
         }
 
@@ -53,7 +53,19 @@ class ReportController extends Controller
                 $expense = Expense::where('user', $user->id)->with('Advert')->get();
                 $userprice = $expense->sum('amount');
 
-                return response(['expense' => $expense, 'userprice' => $userprice]);
+                return response(['expense' => $expense, 'userprice' => currency_format($userprice)]);
+            }
+        } 
+    }
+
+    public function get_car_expense_report(Request $request){
+        if($request->id){
+            $advert = Advert::find($request->id);
+            if($advert){
+                $expense = Expense::where('advert', $advert->id)->with('Advert')->get();
+                $carprice = $expense->sum('amount');
+
+                return response(['expense' => $expense, 'carprice' => currency_format($carprice)]);
             }
         }
     }

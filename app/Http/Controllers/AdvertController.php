@@ -159,13 +159,13 @@ class AdvertController extends Controller
 
     public function detail($id){
         $advert = Advert::find($id);
-
+        $totalExpense = Expense::where('advert', $id)->sum('amount');
         if($advert->profit < 100){
             $profit = '%'.$advert->profit;
         }else{
             $profit = $advert->profit.'TL';
         }
-        return view('layout.advert.detail', ['advert' => $advert, 'profit' => $profit]);
+        return view('layout.advert.detail', ['advert' => $advert, 'profit' => $profit, 'totalExpense' => $totalExpense]);
     }
 
     public function add_expense(Request $request){
@@ -217,7 +217,7 @@ class AdvertController extends Controller
     }
 
     public function edit($id){
-        return view('layout.advert.edit', ['advert' => Advert::find($id), 'users' => User::all()]);
+        return view('layout.advert.edit', ['advert' => Advert::find($id), 'users' => User::all(), 'photos' => AdvertPhoto::where('advert', $id)->get()]);
     }
     
 
@@ -242,7 +242,7 @@ class AdvertController extends Controller
             $adv->arabam_url = trim(ucfirst($request->arabam));
             $adv->status = $request->status;
             $adv->buy_price = $request->buy_price;
-            $adv->sell_price = $request->sellprice;
+            $adv->sell_price = $request->sell_price;
             $adv->buy_date = trim(ucfirst($request->buy_date));
             $adv->damage = $request->damage;
 
@@ -267,5 +267,21 @@ class AdvertController extends Controller
         }
 
         return $this->response;
+    }
+
+    public function delete_photo(Request $request){
+        if($request->id){
+            $find = AdvertPhoto::find($request->id);
+            if($find){
+
+                if($find->delete()){
+                    return response(["title" => "Başarılı!", "message" => "Fotoğraf başarıyla silindi!", "type" => "success", "status" => true]);
+                }else{
+                    return response(["title" => "Hata!", "message" => "Fotoğraf silinirken bir hata oluştu!", "type" => "error"]);
+                }
+            }else{  
+                return response(["title" => "Hata!", "message" => "Fotoğraf bulunamadı!", "type" => "error"]);
+            }
+        }
     }
 }

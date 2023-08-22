@@ -79,11 +79,36 @@
                                           <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addNote{{$advert->id}}" href="javascript:;">Not Ekle</a></li>
                                           <li><hr class="dropdown-divider"></li>
                                           <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#sell{{$advert->id}}" href="javascript:;">Satış Yap</a></li>
+                                          <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addExpense{{$advert->id}}" href="javascript:;">Harcama Ekle</a></li>
 
                                         </ul>
                                       </div>
                                 </td>
                             </tr>
+
+                            <div class="modal fade" id="addExpense{{$advert->id}}" tabindex="-1">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title">Harcama Ekle</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="expenseType{{$advert->id}}" class="form-label">Masraf Türü</label>
+                                        <input type="text" class="form-control" id="expenseType{{$advert->id}}" placeholder="Noter, Tamir, Evrak...">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="expenseAmount{{$advert->id}}" class="form-label">Masraf Tutarı</label>
+                                        <input type="text" class="form-control" id="expenseAmount{{$advert->id}}" placeholder="5.000, 2.000 ...">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary saveExpense" id="{{$advert->id}}" advert-id="{{$advert->id}}"> Kaydet</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
 
 
                             <div class="modal fade" id="changeStatusModal{{$advert->id}}" tabindex="-1">
@@ -198,6 +223,22 @@
         var amount = $("#amount"+$(this).attr('advert-id')).val();
 
         axios.post('/advert/sell', {id:id, amount:amount}).then((res) => {
+            toastr[res.data.type](res.data.message);
+            if(res.data.status){
+                setInterval(() => {
+                    window.location.reload();
+                }, 500);
+            }
+        }); 
+    });
+
+
+    $(".saveExpense").on("click", function(){
+        var id   = $(this).attr('advert-id');
+        var type = $("#expenseType"+id).val();
+        var amount = $("#expenseAmount"+id).val();
+
+        axios.post('/advert/add-expense', {id:id, type:type, amount:amount}).then((res) => {
             toastr[res.data.type](res.data.message);
             if(res.data.status){
                 setInterval(() => {

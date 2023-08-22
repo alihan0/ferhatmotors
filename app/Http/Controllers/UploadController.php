@@ -19,7 +19,7 @@ class UploadController extends Controller
         $filename = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
 
-        $allowedExtensions = ["png", "jpg"];
+        $allowedExtensions = ["png", "jpg", "JPG", "PNG"];
         if (!in_array($extension, $allowedExtensions)) {
             $this->response["message"] = "Geçersiz dosya formatı!";
         }else{
@@ -46,7 +46,7 @@ class UploadController extends Controller
     foreach ($request->file('photos') as $photo) {
         $extension = $photo->getClientOriginalExtension();
 
-        if ($extension === 'jpg' || $extension === 'png') {
+        if ($extension === 'jpg' || $extension === 'png' || $extension === "JPG" || $extension === "PNG") {
             $path = Storage::disk('public')->put('photos', $photo);
             $uploadedPaths[] = $path;
         }

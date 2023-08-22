@@ -37,5 +37,9 @@ class AppServiceProvider extends ServiceProvider
                 // Veritabanı hala oluşturulmamış
             }
         }
+
+        \Blade::directive('money', function ($expression) {
+            return "<?php echo format_money($expression); ?>";
+        });
     }
 }

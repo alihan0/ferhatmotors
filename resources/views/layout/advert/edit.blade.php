@@ -150,6 +150,12 @@
         <div id="photoLine" class="row">
           <div class="card">
             <div class="card-body" id="photoPreview">
+              @foreach($photos as $img)
+              <div>
+              <img src="/storage/{{$img->file}}" class="wd-50 border-5 m-2" alt="...">
+              <a href="javascript:;" class="btn btn-danger btn-sm py-0 px-1 delImg" id="{{$img->id}}"><i data-feather="trash" style="width:12px"></i></a>
+              </div>
+              @endforeach
             </div>
         </div>
         </div>
@@ -176,7 +182,7 @@ $(document).ready(function(){
 
         // Dizideki resim yollarını önizleme olarak eklemek için döngü
         for (let i = 0; i < res.data.length; i++) {
-            $("#photoPreview").append('<img src="/storage/'+res.data[i].file+'" class="wd-50 border-5 m-2" alt="...">');
+           // $("#photoPreview").append('<img src="/storage/'+res.data[i].file+'" class="wd-50 border-5 m-2" alt="...">');
         }
     });
 });
@@ -228,5 +234,14 @@ $(document).ready(function(){
           $("#ownername").val($("#owner :selected").html());
         }
       });
+
+      $(".delImg").on("click", function(){
+        var id = $(this).attr('id');
+        axios.post('/advert/delete/photo', {id:id}).then((res) => {
+          if(res.data.status){
+            window.location.reload();
+          }
+        })
+      })
     </script>
 @endsection

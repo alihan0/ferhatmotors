@@ -121,9 +121,9 @@
                 <div class="card">
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item justify-content-between d-flex"><b>Alış Fiyatı: </b> {{$advert->buy_price}}</li>
-                            <li class="list-group-item justify-content-between d-flex"><b>Satış Fiyatı: </b> {{$advert->sell_price ?? "-"}}</li>
-                            <li class="list-group-item justify-content-between d-flex"><b>Satış Tutarı: </b> {{$advert->sold_price ?? "-"}}</li>
+                            <li class="list-group-item justify-content-between d-flex"><b>Alış Fiyatı: </b> {{currency_format($advert->buy_price)}}</li>
+                            <li class="list-group-item justify-content-between d-flex"><b>Satış Fiyatı: </b> {{currency_format($advert->sell_price) ?? "-"}}</li>
+                            <li class="list-group-item justify-content-between d-flex"><b>Satış Tutarı: </b> {{currency_format($advert->sold_price) ?? "-"}}</li>
                           </ul>
                     </div>
                 </div>
@@ -207,15 +207,25 @@
                             @foreach ($advert->Expense as $item)
                                 <li class="list-group-item text-center d-flex align-items-center justify-content-between align-center">
                                     <p class="px-4 w-50 text-start " >{{$item->type}}</p>
-                                    <p class="px-4" >- {{$item->amount}} TL</p>
+                                    
 
                                     <span class="text-muted text-center">
                                         {{$item->User->firstname.' '.$item->User->lastname}}
                                         <br>
                                         {{date_format($item->created_at,"d M, Y")}}
                                     </span>
+                                    <p class="px-4" >- {{currency_format($item->amount)}} TL</p>
                                 </li>
                             @endforeach
+                            <li class="list-group-item text-center bg-light d-flex align-items-center justify-content-between align-center">
+                                    <p class="px-4 w-50 text-start fw-bold" >Toplam: </p>
+                                    
+
+                                    <span class="text-muted text-center">
+                                       
+                                    </span>
+                                    <p class="px-4 fw-bold" >{{ currency_format($totalExpense) }} TL</p>
+                                </li>
                           </ul>
                         @else
                         <div class="alert alert-primary" role="alert">
@@ -317,7 +327,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Durumu Değiştir</h5>
+          <h5 class="modal-title">Harcama Ekle</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

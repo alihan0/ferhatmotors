@@ -49,13 +49,13 @@
                         <th scope="row">{{$m->id}}</th>
                         <td>{{$m->brand.'/'.$m->model}}</td>
                         <td>{{$m->sold_date}}</td>
-                        <td class="text-end">{{$m->sold_price}} ₺</td>
+                        <td class="text-end">{{currency_format($m->sold_price)}} ₺</td>
                       </tr>
                       
                       @endforeach
                       <tr class="fw-bold text-end">
                         <td colspan="3" class="">Toplam:</td>
-                        <td class="" style="width:10%">{{$monthprice}} ₺</td>
+                        <td class="" style="width:10%">{{currency_format($monthprice)}} ₺</td>
                       </tr>
                     </tbody>
                   </table>
@@ -83,13 +83,13 @@
                         <th scope="row">{{$y->id}}</th>
                         <td>{{$y->brand.'/'.$y->model}}</td>
                         <td>{{$y->sold_date}}</td>
-                        <td class="text-end">{{$y->sold_price}} ₺</td>
+                        <td class="text-end">{{currency_format($y->sold_price)}} ₺</td>
                       </tr>
                       
                       @endforeach
                       <tr class="fw-bold text-end">
                         <td colspan="3" class="">Toplam:</td>
-                        <td class="" style="width:10%">{{$yearprice}} ₺</td>
+                        <td class="" style="width:10%">{{currency_format($yearprice)}} ₺</td>
                       </tr>
                     </tbody>
                   </table>
@@ -117,13 +117,13 @@
                         <th scope="row">{{$a->id}}</th>
                         <td>{{$a->brand.'/'.$a->model}}</td>
                         <td>{{$y->sold_date}}</td>
-                        <td class="text-end">{{$a->sold_price}} ₺</td>
+                        <td class="text-end">{{currency_format($a->sold_price)}} ₺</td>
                       </tr>
                       
                       @endforeach
                       <tr class="fw-bold text-end">
                         <td colspan="3" class="">Toplam:</td>
-                        <td class="" style="width:10%">{{$allprice}} ₺</td>
+                        <td class="" style="width:10%">{{currency_format($allprice)}} ₺</td>
                       </tr>
                     </tbody>
                   </table>
